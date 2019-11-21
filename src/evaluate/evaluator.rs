@@ -1,6 +1,6 @@
 use crate::context::CommandRegistry;
 use crate::data::base::Block;
-use crate::data::value;
+use crate::evaluate::operator::apply_operator;
 use crate::prelude::*;
 use crate::TaggedDictBuilder;
 use log::trace;
@@ -40,8 +40,8 @@ pub(crate) fn evaluate_baseline_expr(
 
             trace!("left={:?} right={:?}", left.value, right.value);
 
-            match value::compare_values(binary.op(), &left, &right) {
-                Ok(result) => Ok(value::boolean(result).into_value(tag)),
+            match apply_operator(binary.op(), &*left, &*right) {
+                Ok(result) => Ok(result.into_value(tag)),
                 Err((left_type, right_type)) => Err(ShellError::coerce_error(
                     left_type.spanned(binary.left().span),
                     right_type.spanned(binary.right().span),

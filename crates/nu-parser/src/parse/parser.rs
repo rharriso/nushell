@@ -37,7 +37,7 @@ macro_rules! operator {
         #[tracable_parser]
         pub fn $name(input: NomSpan) -> IResult<NomSpan, TokenNode> {
             let start = input.offset;
-            let (input, tag) = tag(stringify!($token))(input)?;
+            let (input, tag) = tag($token)(input)?;
             let end = input.offset;
 
             Ok((
@@ -48,13 +48,15 @@ macro_rules! operator {
     };
 }
 
-operator! { gt:  >  }
-operator! { lt:  <  }
-operator! { gte: >= }
-operator! { lte: <= }
-operator! { eq:  == }
-operator! { neq: != }
-operator! { dot: . }
+operator! { gt:  ">"  }
+operator! { lt:  "<"  }
+operator! { gte: ">=" }
+operator! { lte: "<=" }
+operator! { eq:  "==" }
+operator! { neq: "!=" }
+operator! { dot: "." }
+operator! { cont: "=~" }
+operator! { ncont: "!~" }
 
 #[derive(Debug, Clone, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
 pub enum Number {
@@ -238,7 +240,7 @@ pub fn raw_number(input: NomSpan) -> IResult<NomSpan, RawNumber> {
 
 #[tracable_parser]
 pub fn operator(input: NomSpan) -> IResult<NomSpan, TokenNode> {
-    let (input, operator) = alt((gte, lte, neq, gt, lt, eq))(input)?;
+    let (input, operator) = alt((gte, lte, neq, gt, lt, eq, cont, ncont))(input)?;
 
     Ok((input, operator))
 }
@@ -837,6 +839,16 @@ mod tests {
         equal_tokens! {
             <nodes>
             "!=" -> b::token_list(vec![b::op("!=")])
+        }
+
+        equal_tokens! {
+            <nodes>
+            "=~" -> b::token_list(vec![b::op("=~")])
+        }
+
+        equal_tokens! {
+            <nodes>
+            "!~" -> b::token_list(vec![b::op("!~")])
         }
     }
 
