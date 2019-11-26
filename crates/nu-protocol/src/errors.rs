@@ -1,9 +1,10 @@
-use crate::prelude::*;
-
 use ansi_term::Color;
+use bigdecimal::BigDecimal;
 use derive_new::new;
 use language_reporting::{Diagnostic, Label, Severity};
-use nu_source::{Spanned, TracableContext};
+use nu_source::{b, DebugDocBuilder, PrettyDebug, Span, Spanned, SpannedItem, TracableContext};
+use num_bigint::BigInt;
+use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::ops::Range;
@@ -318,7 +319,7 @@ impl ShellError {
         .start()
     }
 
-    pub(crate) fn unexpected_eof(expected: impl Into<String>, span: impl Into<Span>) -> ShellError {
+    pub fn unexpected_eof(expected: impl Into<String>, span: impl Into<Span>) -> ShellError {
         ProximateShellError::UnexpectedEof {
             expected: expected.into(),
             span: span.into(),
@@ -326,7 +327,7 @@ impl ShellError {
         .start()
     }
 
-    pub(crate) fn range_error(
+    pub fn range_error(
         expected: impl Into<ExpectedRange>,
         actual: &Spanned<impl fmt::Debug>,
         operation: impl Into<String>,
@@ -339,14 +340,14 @@ impl ShellError {
         .start()
     }
 
-    pub(crate) fn syntax_error(problem: Spanned<impl Into<String>>) -> ShellError {
+    pub fn syntax_error(problem: Spanned<impl Into<String>>) -> ShellError {
         ProximateShellError::SyntaxError {
             problem: problem.map(|p| p.into()),
         }
         .start()
     }
 
-    pub(crate) fn coerce_error(
+    pub fn coerce_error(
         left: Spanned<impl Into<String>>,
         right: Spanned<impl Into<String>>,
     ) -> ShellError {
@@ -357,10 +358,7 @@ impl ShellError {
         .start()
     }
 
-    pub(crate) fn argument_error(
-        command: Spanned<impl Into<String>>,
-        kind: ArgumentError,
-    ) -> ShellError {
+    pub fn argument_error(command: Spanned<impl Into<String>>, kind: ArgumentError) -> ShellError {
         ProximateShellError::ArgumentError {
             command: command.map(|c| c.into()),
             error: kind,
@@ -368,7 +366,7 @@ impl ShellError {
         .start()
     }
 
-    pub(crate) fn parse_error(
+    pub fn parse_error(
         error: nom::Err<(
             nom_locate::LocatedSpanEx<&str, TracableContext>,
             nom::error::ErrorKind,
@@ -395,11 +393,11 @@ impl ShellError {
         }
     }
 
-    pub(crate) fn diagnostic(diagnostic: Diagnostic<Span>) -> ShellError {
+    pub fn diagnostic(diagnostic: Diagnostic<Span>) -> ShellError {
         ProximateShellError::Diagnostic(ShellDiagnostic { diagnostic }).start()
     }
 
-    pub(crate) fn to_diagnostic(self) -> Diagnostic<Span> {
+    pub fn to_diagnostic(self) -> Diagnostic<Span> {
         match self.error {
             ProximateShellError::MissingValue { span, reason } => {
                 let mut d = Diagnostic::new(
@@ -579,19 +577,11 @@ impl ShellError {
         )
     }
 
-    // pub fn string(title: impl Into<String>) -> ShellError {
-    //     ProximateShellError::String(StringError::new(title.into(), String::new())).start()
-    // }
-    //
-    // pub(crate) fn unreachable(title: impl Into<String>) -> ShellError {
-    //     ShellError::untagged_runtime_error(&format!("BUG: Unreachable: {}", title.into()))
-    // }
-
-    pub(crate) fn unimplemented(title: impl Into<String>) -> ShellError {
+    pub fn unimplemented(title: impl Into<String>) -> ShellError {
         ShellError::untagged_runtime_error(&format!("Unimplemented: {}", title.into()))
     }
 
-    pub(crate) fn unexpected(title: impl Into<String>) -> ShellError {
+    pub fn unexpected(title: impl Into<String>) -> ShellError {
         ShellError::untagged_runtime_error(&format!("Unexpected: {}", title.into()))
     }
 }

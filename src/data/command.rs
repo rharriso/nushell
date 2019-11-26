@@ -1,7 +1,8 @@
 use crate::commands::command::Command;
-use crate::data::{TaggedDictBuilder, TaggedListBuilder, Value};
+use crate::data::{TaggedDictBuilder, TaggedListBuilder};
 use crate::parser::registry::{NamedType, PositionalType, Signature};
 use crate::prelude::*;
+use nu_protocol::Value;
 use std::ops::Deref;
 
 pub(crate) fn command_dict(command: Arc<Command>, tag: impl Into<Tag>) -> Value {

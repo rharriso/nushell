@@ -1,6 +1,5 @@
-use crate::data::Value;
-use crate::errors::ShellError;
 use crate::prelude::*;
+use nu_protocol::{ShellError, Value};
 
 use crate::parser::registry::Signature;
 

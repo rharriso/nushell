@@ -1,8 +1,8 @@
 use crate::commands::{RawCommandArgs, WholeStreamCommand};
-use crate::errors::ShellError;
 use crate::parser::hir::{Expression, NamedArguments};
 use crate::prelude::*;
 use futures::stream::TryStreamExt;
+use nu_protocol::ShellError;
 use std::sync::atomic::Ordering;
 
 pub struct Autoview;

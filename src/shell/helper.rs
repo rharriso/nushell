@@ -4,6 +4,7 @@ use crate::parser::hir::TokensIterator;
 use crate::parser::parse::token_tree::TokenNode;
 use ansi_term::Color;
 use log::{log_enabled, trace};
+use nu_protocol::outln;
 use nu_source::{nom_input, HasSpan, Spanned, Tag, Tagged, Text};
 use rustyline::completion::Completer;
 use rustyline::error::ReadlineError;

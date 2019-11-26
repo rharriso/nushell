@@ -1,10 +1,8 @@
 use crate::commands::UnevaluatedCallInfo;
-use crate::data::base::Value;
-use crate::errors::ShellError;
 use crate::parser::hir::SyntaxShape;
-use crate::parser::registry::Signature;
 use crate::prelude::*;
 use mime::Mime;
+use nu_protocol::{ShellError, Signature, Value};
 use nu_source::{AnchorLocation, Span};
 use std::path::PathBuf;
 use std::str::FromStr;

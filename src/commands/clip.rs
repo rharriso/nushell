@@ -2,9 +2,9 @@
 pub mod clipboard {
     use crate::commands::WholeStreamCommand;
     use crate::context::CommandRegistry;
-    use crate::errors::ShellError;
     use crate::prelude::*;
     use futures::stream::StreamExt;
+    use nu_protocol::ShellError;
 
     use clipboard::{ClipboardContext, ClipboardProvider};
 

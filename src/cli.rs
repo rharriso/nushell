@@ -6,14 +6,9 @@ use crate::commands::plugin::JsonRpc;
 use crate::commands::plugin::{PluginCommand, PluginSink};
 use crate::commands::whole_stream_command;
 use crate::context::Context;
-use crate::data::{
-    base::{UntaggedValue, Value},
-    config,
-};
-pub(crate) use crate::errors::ShellError;
+use crate::data::config;
 #[cfg(not(feature = "starship-prompt"))]
 use crate::git::current_branch;
-use crate::parser::registry::Signature;
 use crate::parser::{
     hir,
     hir::syntax_shape::{expand_syntax, ExpandContext, PipelineShape},
@@ -21,6 +16,7 @@ use crate::parser::{
     TokenNode,
 };
 use crate::prelude::*;
+use nu_protocol::{ShellError, UntaggedValue, Signature, Value};
 use nu_source::{Spanned, Tagged};
 
 use log::{debug, log_enabled, trace};

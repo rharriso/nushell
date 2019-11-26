@@ -1,8 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::data::TaggedDictBuilder;
-use crate::errors::ExpectedRange;
 use crate::prelude::*;
 use bson::{decode_document, spec::BinarySubtype, Bson};
+use nu_protocol::ExpectedRange;
 use nu_source::SpannedItem;
 use std::str::FromStr;
 

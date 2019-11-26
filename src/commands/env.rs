@@ -1,9 +1,8 @@
 use crate::cli::History;
 use crate::data::config;
-use crate::data::{Dictionary, Value};
-use crate::errors::ShellError;
 use crate::prelude::*;
 use crate::TaggedDictBuilder;
+use nu_protocol::{Dictionary, ShellError, Value};
 
 use crate::commands::WholeStreamCommand;
 use crate::parser::registry::Signature;

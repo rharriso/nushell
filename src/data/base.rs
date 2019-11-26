@@ -20,81 +20,6 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::time::SystemTime;
 
-mod serde_bigint {
-    use num_traits::cast::FromPrimitive;
-    use num_traits::cast::ToPrimitive;
-
-    pub fn serialize<S>(big_int: &super::BigInt, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serde::Serialize::serialize(
-            &big_int
-                .to_i64()
-                .ok_or(serde::ser::Error::custom("expected a i64-sized bignum"))?,
-            serializer,
-        )
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<super::BigInt, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let x: i64 = serde::Deserialize::deserialize(deserializer)?;
-        Ok(super::BigInt::from_i64(x)
-            .ok_or(serde::de::Error::custom("expected a i64-sized bignum"))?)
-    }
-}
-
-mod serde_bigdecimal {
-    use num_traits::cast::FromPrimitive;
-    use num_traits::cast::ToPrimitive;
-
-    pub fn serialize<S>(big_decimal: &super::BigDecimal, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serde::Serialize::serialize(
-            &big_decimal
-                .to_f64()
-                .ok_or(serde::ser::Error::custom("expected a f64-sized bignum"))?,
-            serializer,
-        )
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<super::BigDecimal, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let x: f64 = serde::Deserialize::deserialize(deserializer)?;
-        Ok(super::BigDecimal::from_f64(x)
-            .ok_or(serde::de::Error::custom("expected a f64-sized bigdecimal"))?)
-    }
-}
-
-#[derive(Debug, Clone, Ord, PartialOrd, Eq, PartialEq, Deserialize, Serialize)]
-pub enum Primitive {
-    Nothing,
-    #[serde(with = "serde_bigint")]
-    Int(BigInt),
-    #[serde(with = "serde_bigdecimal")]
-    Decimal(BigDecimal),
-    Bytes(u64),
-    String(String),
-    ColumnPath(ColumnPath),
-    Pattern(String),
-    Boolean(bool),
-    Date(DateTime<Utc>),
-    Duration(u64), // Duration in seconds
-    Path(PathBuf),
-    #[serde(with = "serde_bytes")]
-    Binary(Vec<u8>),
-
-    // Stream markers (used as bookend markers rather than actual values)
-    BeginningOfStream,
-    EndOfStream,
-}
-
 impl ShellTypeName for Primitive {
     fn type_name(&self) -> &'static str {
         match self {
@@ -113,18 +38,6 @@ impl ShellTypeName for Primitive {
             Primitive::BeginningOfStream => "marker<beginning of stream>",
             Primitive::EndOfStream => "marker<end of stream>",
         }
-    }
-}
-
-impl From<BigDecimal> for Primitive {
-    fn from(decimal: BigDecimal) -> Primitive {
-        Primitive::Decimal(decimal)
-    }
-}
-
-impl From<f64> for Primitive {
-    fn from(float: f64) -> Primitive {
-        Primitive::Decimal(BigDecimal::from_f64(float).unwrap())
     }
 }
 
@@ -259,32 +172,6 @@ impl Block {
         }
 
         Ok(last.unwrap())
-    }
-}
-
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Clone, Serialize, Deserialize)]
-pub enum UntaggedValue {
-    Primitive(Primitive),
-    Row(crate::data::Dictionary),
-    Table(Vec<Value>),
-
-    // Errors are a type of value too
-    Error(ShellError),
-
-    Block(Block),
-}
-
-#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize)]
-pub struct Value {
-    pub value: UntaggedValue,
-    pub tag: Tag,
-}
-
-impl std::ops::Deref for Value {
-    type Target = UntaggedValue;
-
-    fn deref(&self) -> &Self::Target {
-        &self.value
     }
 }
 

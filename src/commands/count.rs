@@ -1,9 +1,8 @@
 use crate::commands::WholeStreamCommand;
-use crate::data::Value;
-use crate::errors::ShellError;
 use crate::parser::CommandRegistry;
 use crate::prelude::*;
 use futures::stream::StreamExt;
+use nu_protocol::{ShellError, Value};
 
 pub struct Count;
 

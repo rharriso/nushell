@@ -1,8 +1,8 @@
-use crate::errors::ExpectedRange;
 use crate::parser::hir::path::{PathMember, UnspannedPathMember};
 use crate::prelude::*;
 use crate::ColumnPath;
 use crate::SpannedTypeName;
+use nu_protocol::ExpectedRange;
 use nu_source::{Spanned, SpannedItem, Tagged};
 
 impl Value {

@@ -68,19 +68,6 @@ macro_rules! trace_out_stream {
     }};
 }
 
-// These macros exist to differentiate between intentional writing to stdout
-// and stray printlns left by accident
-
-#[macro_export]
-macro_rules! outln {
-    ($($tokens:tt)*) => { println!($($tokens)*) }
-}
-
-#[macro_export]
-macro_rules! errln {
-    ($($tokens:tt)*) => { eprintln!($($tokens)*) }
-}
-
 #[macro_export]
 macro_rules! dict {
     ($( $key:expr => $value:expr ),*) => {
@@ -100,6 +87,8 @@ macro_rules! dict {
     }
 }
 
+pub(crate) use nu_protocol::{errln, outln};
+
 pub(crate) use crate::cli::MaybeOwned;
 pub(crate) use crate::commands::command::{
     CallInfo, CommandAction, CommandArgs, ReturnSuccess, ReturnValue, RunnableContext,
@@ -108,15 +97,12 @@ pub(crate) use crate::commands::PerItemCommand;
 pub(crate) use crate::commands::RawCommandArgs;
 pub(crate) use crate::context::CommandRegistry;
 pub(crate) use crate::context::Context;
-pub(crate) use crate::data::base::{UntaggedValue, Value};
 pub(crate) use crate::data::types::ExtractType;
-pub(crate) use crate::data::Primitive;
 pub(crate) use crate::env::host::handle_unexpected;
 pub(crate) use crate::env::Host;
 pub(crate) use crate::errors::{CoerceInto, ParseError, ShellError};
 pub(crate) use crate::parser::hir::SyntaxShape;
 pub(crate) use crate::parser::parse::parser::Number;
-pub(crate) use crate::parser::registry::Signature;
 pub(crate) use crate::shell::filesystem_shell::FilesystemShell;
 pub(crate) use crate::shell::help_shell::HelpShell;
 pub(crate) use crate::shell::shell_manager::ShellManager;

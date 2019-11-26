@@ -1,9 +1,8 @@
-use crate::commands::command::CommandAction;
 use crate::commands::PerItemCommand;
 use crate::commands::UnevaluatedCallInfo;
-use crate::errors::ShellError;
 use crate::parser::registry;
 use crate::prelude::*;
+use nu_protocol::{CommandAction, ShellError};
 use std::path::PathBuf;
 
 pub struct Enter;

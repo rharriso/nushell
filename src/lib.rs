@@ -12,7 +12,6 @@ mod commands;
 mod context;
 mod data;
 mod env;
-mod errors;
 mod evaluate;
 mod format;
 mod git;
