@@ -1,6 +1,7 @@
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
-use nu_protocol::{ShellError, Signature};
+use nu_protocol::{Signature};
+use nu_errors::ShellError;
 
 pub struct PWD;
 

@@ -8,7 +8,7 @@ use crate::parser::TokenNode;
 use crate::prelude::*;
 #[allow(unused)]
 use getset::{Getters, MutGetters};
-use nu_protocol::{ParseError, ShellError};
+use nu_errors::{ParseError, ShellError};
 use nu_source::Spanned;
 
 cfg_if::cfg_if! {

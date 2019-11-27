@@ -13,13 +13,14 @@ documentation = "https://book.nushell.sh"
 
 [workspace]
 
-members = ["crates/nu-source", "crates/nu-textview", "crates/nu-protocol"]
+members = ["crates/nu-errors", "crates/nu-source", "crates/nu-textview", "crates/nu-protocol"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 nu-source = { path = "./crates/nu-source" }
 nu-protocol = { path = "./crates/nu-protocol" }
+nu-errors = { path = "./crates/nu-errors" }
 
 query_interface = "0.3.5"
 typetag = "0.1.4"

@@ -1,4 +1,4 @@
-use nu_protocol::ShellError;
+use nu_errors::ShellError;
 use crate::parser::hir::syntax_shape::FlatShape;
 use crate::prelude::*;
 use ansi_term::Color;

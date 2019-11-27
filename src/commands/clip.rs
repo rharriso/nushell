@@ -4,7 +4,8 @@ pub mod clipboard {
     use crate::context::CommandRegistry;
     use crate::prelude::*;
     use futures::stream::StreamExt;
-    use nu_protocol::{ReturnValue, ShellError, Signature, Value};
+    use nu_errors::ShellError;
+    use nu_protocol::{ReturnValue, Signature, Value};
 
     use clipboard::{ClipboardContext, ClipboardProvider};
 

@@ -1,7 +1,7 @@
 use nu::{serve_plugin, value, Plugin, TaggedDictBuilder};
+use nu_errors::ShellError;
 use nu_protocol::{
-    CallInfo, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature, SyntaxShape,
-    UntaggedValue, Value,
+    CallInfo, Primitive, ReturnSuccess, ReturnValue, Signature, SyntaxShape, UntaggedValue, Value,
 };
 
 use nom::{

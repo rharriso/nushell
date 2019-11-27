@@ -3,9 +3,9 @@ use crate::commands::UnevaluatedCallInfo;
 use crate::data::value;
 use crate::parser::registry;
 use crate::prelude::*;
+use nu_errors::ShellError;
 use nu_protocol::{
-    CallInfo, CommandAction, Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape,
-    UntaggedValue, Value,
+    CallInfo, CommandAction, Primitive, ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value,
 };
 use std::path::PathBuf;
 

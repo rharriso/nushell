@@ -2,9 +2,10 @@
 extern crate indexmap;
 
 use nu::{serve_plugin, value, Plugin};
+use nu_errors::ShellError;
 use nu_protocol::{
-    CallInfo, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature, SpannedTypeName,
-    SyntaxShape, UntaggedValue, Value,
+    CallInfo, Primitive, ReturnSuccess, ReturnValue, Signature, SpannedTypeName, SyntaxShape,
+    UntaggedValue, Value,
 };
 use nu_source::Tag;
 

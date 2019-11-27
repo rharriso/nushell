@@ -1,6 +1,6 @@
 use crate::parser::hir::syntax_shape::{
     expand_atom, parse_single_node, ExpandContext, ExpandExpression, ExpansionRule,
-    FallibleColorSyntax, FlatShape, ParseError, TestSyntax,
+    FallibleColorSyntax, FlatShape, TestSyntax,
 };
 use crate::parser::hir::tokens_iterator::Peeked;
 use crate::parser::{
@@ -9,7 +9,7 @@ use crate::parser::{
     UnspannedToken,
 };
 use crate::prelude::*;
-use nu_protocol::ShellError;
+use nu_errors::{ShellError, ParseError};
 use nu_source::Spanned;
 
 #[derive(Debug, Copy, Clone)]

@@ -3,9 +3,8 @@ use crate::data::value;
 use crate::data::TaggedDictBuilder;
 use crate::prelude::*;
 use bson::{decode_document, spec::BinarySubtype, Bson};
-use nu_protocol::{
-    ExpectedRange, Primitive, ReturnSuccess, ShellError, Signature, UntaggedValue, Value,
-};
+use nu_errors::{ExpectedRange, ShellError};
+use nu_protocol::{Primitive, ReturnSuccess, Signature, UntaggedValue, Value};
 use nu_source::SpannedItem;
 use std::str::FromStr;
 

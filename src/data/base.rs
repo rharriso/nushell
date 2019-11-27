@@ -10,9 +10,10 @@ use chrono::{DateTime, Utc};
 use derive_new::new;
 use log::trace;
 use nu_protocol::{
-    Evaluate, EvaluateTrait, Primitive, Scope, ShellError, ShellTypeName, SpannedTypeName,
+    Evaluate, EvaluateTrait, Primitive, Scope, ShellTypeName, SpannedTypeName,
     UntaggedValue, Value,
 };
+use nu_errors::ShellError;
 use nu_source::Text;
 use query_interface::{interfaces, vtable_for, ObjectHash};
 use serde::{Deserialize, Serialize};
@@ -211,7 +212,8 @@ mod tests {
     use super::value;
     use crate::data::base::property_get::{as_column_path, ValueExt};
     use indexmap::IndexMap;
-    use nu_protocol::{ColumnPath as ColumnPathValue, PathMember, ShellError, Value};
+    use nu_protocol::{ColumnPath as ColumnPathValue, PathMember, Value};
+    use nu_errors::ShellError;
     use nu_source::*;
     use num_bigint::BigInt;
 

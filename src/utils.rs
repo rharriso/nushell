@@ -1,4 +1,5 @@
-use nu_protocol::{PathMember, ShellError, UnspannedPathMember, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{PathMember, UnspannedPathMember, UntaggedValue, Value};
 use nu_source::{b, DebugDocBuilder, PrettyDebug};
 use std::ops::Div;
 use std::path::{Component, Path, PathBuf};

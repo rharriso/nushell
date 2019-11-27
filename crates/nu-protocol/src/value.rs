@@ -7,11 +7,11 @@ pub mod primitive;
 mod serde_bigdecimal;
 mod serde_bigint;
 
-use crate::errors::ShellError;
 use crate::type_name::{ShellTypeName, SpannedTypeName};
 use crate::value::dict::Dictionary;
 use crate::value::evaluate::Evaluate;
 use crate::value::primitive::Primitive;
+use nu_errors::ShellError;
 use nu_source::{AnchorLocation, HasSpan, Span, Tag};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;

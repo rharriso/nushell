@@ -1,8 +1,8 @@
 use crate::commands::WholeStreamCommand;
-use crate::data::base::Block;
 use crate::prelude::*;
 use log::trace;
-use nu_protocol::{Evaluate, Scope, ShellError, Signature, SyntaxShape};
+use nu_errors::ShellError;
+use nu_protocol::{Evaluate, Scope, Signature, SyntaxShape};
 
 pub struct SkipWhile;
 

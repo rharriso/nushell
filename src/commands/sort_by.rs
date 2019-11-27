@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::data::base::property_get::get_data_by_key;
 use crate::prelude::*;
-use nu_protocol::{ShellError, Signature, SyntaxShape, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Signature, SyntaxShape, Value};
 use nu_source::Tagged;
 
 pub struct SortBy;

@@ -11,8 +11,7 @@ use crate::parser::{
     hir::tokens_iterator::TokensIterator,
     parse::token_tree::Delimiter,
 };
-use nu_protocol::ParseError;
-use nu_protocol::ShellError;
+use nu_errors::{ParseError, ShellError};
 use nu_source::Span;
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;

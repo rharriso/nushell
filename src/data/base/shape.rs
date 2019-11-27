@@ -4,8 +4,9 @@ use chrono_humanize::Humanize;
 use derive_new::new;
 use indexmap::IndexMap;
 use nu_protocol::{
-    ColumnPath, Dictionary, Evaluate, Primitive, ShellError, ShellTypeName, UntaggedValue, Value,
+    ColumnPath, Dictionary, Evaluate, Primitive, ShellTypeName, UntaggedValue, Value,
 };
+use nu_errors::ShellError;
 use nu_source::{b, DebugDoc, PrettyDebug};
 use std::collections::BTreeMap;
 use std::fmt::Debug;

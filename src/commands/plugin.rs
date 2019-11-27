@@ -4,8 +4,9 @@ use crate::prelude::*;
 use derive_new::new;
 use log::trace;
 use nu_protocol::{
-    Primitive, ReturnSuccess, ReturnValue, ShellError, Signature, UntaggedValue, Value,
+    Primitive, ReturnSuccess, ReturnValue, Signature, UntaggedValue, Value,
 };
+use nu_errors::ShellError;
 use serde::{self, Deserialize, Serialize};
 use std::io::prelude::*;
 use std::io::BufReader;

@@ -5,7 +5,7 @@ pub(crate) mod parse;
 pub(crate) mod parse_command;
 pub(crate) mod registry;
 
-use nu_protocol::ShellError;
+use nu_errors::ShellError;
 
 pub(crate) use deserializer::ConfigDeserializer;
 pub(crate) use hir::syntax_shape::flat_shape::FlatShape;

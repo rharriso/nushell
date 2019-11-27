@@ -3,8 +3,9 @@ use crate::data::value;
 use crate::format::TableView;
 use crate::prelude::*;
 use nu_protocol::{
-    Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
+    Primitive, ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value,
 };
+use nu_errors::ShellError;
 
 pub struct Table;
 

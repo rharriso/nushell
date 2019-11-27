@@ -2,8 +2,9 @@ use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
 use hex::encode;
 use nu_protocol::{
-    Dictionary, Primitive, ReturnSuccess, ShellError, Signature, UntaggedValue, Value,
+    Dictionary, Primitive, ReturnSuccess, Signature, UntaggedValue, Value,
 };
+use nu_errors::ShellError;
 use rusqlite::{Connection, NO_PARAMS};
 use std::io::Read;
 

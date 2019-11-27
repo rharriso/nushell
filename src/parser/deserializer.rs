@@ -1,9 +1,7 @@
 use crate::prelude::*;
 use log::trace;
-use nu_protocol::{
-    CallInfo, CoerceInto, ColumnPath, Evaluate, Primitive, ShellError, ShellTypeName,
-    UntaggedValue, Value,
-};
+use nu_errors::{CoerceInto, ShellError};
+use nu_protocol::{CallInfo, ColumnPath, Evaluate, Primitive, ShellTypeName, UntaggedValue, Value};
 use nu_source::Tagged;
 use serde::de;
 use std::path::PathBuf;

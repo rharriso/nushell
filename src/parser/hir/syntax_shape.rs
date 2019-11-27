@@ -16,7 +16,8 @@ use crate::parser::{hir, hir::TokensIterator, Operator, TokenNode, UnspannedToke
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
-use nu_protocol::{ParseError, ShellError, ShellTypeName, Signature};
+use nu_errors::{ParseError, ShellError};
+use nu_protocol::{ShellTypeName, Signature};
 use nu_source::Spanned;
 use std::path::{Path, PathBuf};
 

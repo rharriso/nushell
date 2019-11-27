@@ -3,7 +3,8 @@ use crate::data::value;
 use crate::parser::CommandRegistry;
 use crate::prelude::*;
 use futures::stream::StreamExt;
-use nu_protocol::{ReturnSuccess, ShellError, Signature, Value};
+use nu_errors::ShellError;
+use nu_protocol::{ReturnSuccess, Signature, Value};
 
 pub struct Count;
 

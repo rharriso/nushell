@@ -8,9 +8,10 @@ use crate::prelude::*;
 use crate::TaggedDictBuilder;
 use log::trace;
 use nu_protocol::{
-    ArgumentError, ColumnPath, Evaluate, Primitive, Scope, ShellError, UnspannedPathMember,
+    ColumnPath, Evaluate, Primitive, Scope, UnspannedPathMember,
     UntaggedValue, Value,
 };
+use nu_errors::{ArgumentError, ShellError};
 use nu_source::Text;
 
 pub(crate) fn evaluate_baseline_expr(

@@ -5,7 +5,8 @@ use crate::evaluate::evaluate_baseline_expr;
 use crate::parser::hir;
 use crate::prelude::*;
 use indexmap::IndexMap;
-use nu_protocol::{EvaluatedArgs, Scope, ShellError, Value};
+use nu_errors::ShellError;
+use nu_protocol::{EvaluatedArgs, Scope, Value};
 
 pub(crate) fn evaluate_args(
     call: &hir::Call,

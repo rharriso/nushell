@@ -2,8 +2,9 @@ use crate::commands::PerItemCommand;
 use crate::parser::registry;
 use crate::prelude::*;
 use nu_protocol::{
-    CallInfo, ReturnSuccess, Scope, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
+    CallInfo, ReturnSuccess, Scope, Signature, SyntaxShape, UntaggedValue, Value,
 };
+use nu_errors::ShellError;
 
 pub struct Where;
 

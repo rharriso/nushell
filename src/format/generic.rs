@@ -3,7 +3,8 @@ use crate::data::value::format_leaf;
 use crate::format::{EntriesView, RenderView, TableView};
 use crate::prelude::*;
 use derive_new::new;
-use nu_protocol::{ShellError, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{UntaggedValue, Value};
 
 // A list is printed one line at a time with an optional separator between groups
 #[derive(new)]

@@ -1,8 +1,9 @@
 use crate::data::value;
 use crate::prelude::*;
+use nu_errors::{ExpectedRange, ShellError};
 use nu_protocol::{
-    ColumnPath, ExpectedRange, PathMember, Primitive, ShellError, ShellTypeName, SpannedTypeName,
-    UnspannedPathMember, UntaggedValue, Value,
+    ColumnPath, PathMember, Primitive, ShellTypeName, SpannedTypeName, UnspannedPathMember,
+    UntaggedValue, Value,
 };
 use nu_source::{Spanned, SpannedItem, Tagged};
 

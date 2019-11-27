@@ -1,6 +1,7 @@
 use crate::prelude::*;
 use chrono::{DateTime, Local, Utc};
-use nu_protocol::{Dictionary, ShellError, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Dictionary, Value};
 
 use crate::commands::WholeStreamCommand;
 use crate::data::value;

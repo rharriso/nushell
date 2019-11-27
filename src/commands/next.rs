@@ -1,6 +1,7 @@
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
-use nu_protocol::{CommandAction, ReturnSuccess, ShellError, Signature};
+use nu_protocol::{CommandAction, ReturnSuccess, Signature};
+use nu_errors::ShellError;
 
 pub struct Next;
 

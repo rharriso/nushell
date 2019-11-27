@@ -6,7 +6,8 @@ use heim::units::{ratio, Ratio};
 use std::usize;
 
 use nu::{serve_plugin, value, Plugin, TaggedDictBuilder};
-use nu_protocol::{CallInfo, ReturnSuccess, ReturnValue, ShellError, Signature, Value};
+use nu_errors::ShellError;
+use nu_protocol::{CallInfo, ReturnSuccess, ReturnValue, Signature, Value};
 use nu_source::Tag;
 
 use std::time::Duration;

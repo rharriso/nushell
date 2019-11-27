@@ -3,11 +3,10 @@ use crate::parser::hir::syntax_shape::expression::atom::{
 };
 use crate::parser::hir::syntax_shape::{
     expression::expand_file_path, ExpandContext, ExpandExpression, FallibleColorSyntax, FlatShape,
-    ParseError,
 };
 use crate::parser::{hir, hir::TokensIterator};
 use crate::prelude::*;
-use nu_protocol::ShellError;
+use nu_errors::{ShellError, ParseError};
 
 #[derive(Debug, Copy, Clone)]
 pub struct FilePathShape;

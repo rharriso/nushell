@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::data::TaggedDictBuilder;
 use crate::prelude::*;
-use nu_protocol::{Primitive, ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Primitive, ReturnSuccess, Signature, UntaggedValue, Value};
 use std::collections::HashMap;
 
 pub struct FromINI;

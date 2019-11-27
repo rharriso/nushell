@@ -1,6 +1,7 @@
 use nu::{serve_plugin, value, Plugin};
+use nu_errors::ShellError;
 use nu_protocol::{
-    CallInfo, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature, UntaggedValue, Value,
+    CallInfo, Primitive, ReturnSuccess, ReturnValue, Signature, UntaggedValue, Value,
 };
 
 struct Sum {

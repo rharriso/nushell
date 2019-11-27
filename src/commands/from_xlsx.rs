@@ -3,7 +3,8 @@ use crate::data::value;
 use crate::prelude::*;
 use crate::{TaggedDictBuilder, TaggedListBuilder};
 use calamine::*;
-use nu_protocol::{Primitive, ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Primitive, ReturnSuccess, Signature, UntaggedValue, Value};
 use std::io::Cursor;
 
 pub struct FromXLSX;

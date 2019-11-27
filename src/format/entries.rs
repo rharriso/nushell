@@ -1,7 +1,8 @@
 use crate::data::value;
 use crate::format::RenderView;
 use crate::prelude::*;
-use nu_protocol::{ShellError, Value};
+use nu_errors::ShellError;
+use nu_protocol::Value;
 
 use derive_new::new;
 

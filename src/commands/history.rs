@@ -2,7 +2,8 @@ use crate::cli::History as HistoryFile;
 use crate::commands::PerItemCommand;
 use crate::data::value;
 use crate::prelude::*;
-use nu_protocol::{CallInfo, ReturnSuccess, ShellError, Signature, Value};
+use nu_errors::ShellError;
+use nu_protocol::{CallInfo, ReturnSuccess, Signature, Value};
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 

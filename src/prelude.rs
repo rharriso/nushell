@@ -146,7 +146,7 @@ pub trait ToInputStream {
 impl<T, U> ToInputStream for T
 where
     T: Stream<Item = U> + Send + 'static,
-    U: Into<Result<nu_protocol::Value, nu_protocol::ShellError>>,
+    U: Into<Result<nu_protocol::Value, nu_errors::ShellError>>,
 {
     fn to_input_stream(self) -> InputStream {
         InputStream {

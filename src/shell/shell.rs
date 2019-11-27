@@ -3,7 +3,7 @@ use crate::commands::cp::CopyArgs;
 use crate::commands::mkdir::MkdirArgs;
 use crate::commands::mv::MoveArgs;
 use crate::commands::rm::RemoveArgs;
-use nu_protocol::ShellError;
+use nu_errors::ShellError;
 use crate::prelude::*;
 use crate::stream::OutputStream;
 use nu_source::Tagged;

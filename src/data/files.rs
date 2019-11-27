@@ -1,6 +1,7 @@
 use crate::data::TaggedDictBuilder;
 use crate::prelude::*;
-use nu_protocol::{ShellError, Value};
+use nu_protocol::{Value};
+use nu_errors::ShellError;
 
 #[derive(Debug)]
 pub enum FileType {

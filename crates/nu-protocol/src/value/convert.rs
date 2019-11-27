@@ -1,4 +1,4 @@
-use crate::errors::{CoerceInto, ShellError};
+use nu_errors::{CoerceInto, ShellError};
 use crate::type_name::SpannedTypeName;
 use crate::value::dict::Dictionary;
 use crate::value::primitive::Primitive;

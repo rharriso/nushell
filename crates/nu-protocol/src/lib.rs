@@ -2,7 +2,6 @@
 mod macros;
 
 mod call_info;
-mod errors;
 mod maybe_owned;
 mod plugin;
 mod return_value;
@@ -12,9 +11,6 @@ mod type_name;
 mod value;
 
 pub use crate::call_info::{CallInfo, EvaluatedArgs};
-pub use crate::errors::{
-    ArgumentError, CoerceInto, ExpectedRange, ParseError, ParseErrorReason, ShellError,
-};
 pub use crate::maybe_owned::MaybeOwned;
 pub use crate::return_value::{CommandAction, ReturnSuccess, ReturnValue};
 pub use crate::signature::{NamedType, PositionalType, Signature};

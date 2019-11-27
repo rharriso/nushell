@@ -2,7 +2,8 @@ use crate::cli::History;
 use crate::data::{config, value};
 use crate::prelude::*;
 use crate::TaggedDictBuilder;
-use nu_protocol::{Dictionary, ShellError, Signature, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Dictionary, Signature, UntaggedValue, Value};
 
 use crate::commands::WholeStreamCommand;
 use indexmap::IndexMap;

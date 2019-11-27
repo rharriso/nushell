@@ -10,7 +10,8 @@ use crate::parser::{
 use log::trace;
 use nu_source::{PrettyDebugWithSource, Span, Spanned, SpannedItem, Text};
 
-use nu_protocol::{ArgumentError, NamedType, ParseError, PositionalType, Signature};
+use nu_errors::{ArgumentError, ParseError};
+use nu_protocol::{NamedType, PositionalType, Signature};
 
 pub fn parse_command_tail(
     config: &Signature,

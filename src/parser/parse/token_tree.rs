@@ -2,9 +2,9 @@ use crate::parser::parse::{call_node::*, flag::*, operator::*, pipeline::*, toke
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
-use nu_protocol::{ParseError, ShellError, ShellTypeName};
-use nu_source::Spanned;
-use nu_source::{Tagged, Text};
+use nu_errors::{ParseError, ShellError};
+use nu_protocol::ShellTypeName;
+use nu_source::{Spanned, Tagged, Text};
 use std::fmt;
 
 #[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]

@@ -8,7 +8,8 @@ use crate::parser::{
     hir, hir::Expression, hir::TokensIterator, Operator, RawNumber, UnspannedToken,
 };
 use crate::prelude::*;
-use nu_protocol::{PathMember, ShellError, ShellTypeName};
+use nu_errors::ShellError;
+use nu_protocol::{PathMember, ShellTypeName};
 use nu_source::{Spanned, Tagged};
 use serde::Serialize;
 use std::str::FromStr;

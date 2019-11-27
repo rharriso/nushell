@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::data::value;
 use crate::prelude::*;
-use nu_protocol::{ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
+use nu_protocol::{ReturnSuccess, Signature, UntaggedValue, Value};
+use nu_errors::ShellError;
 
 pub struct ToURL;
 

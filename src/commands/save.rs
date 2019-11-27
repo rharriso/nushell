@@ -1,8 +1,7 @@
 use crate::commands::{UnevaluatedCallInfo, WholeStreamCommand};
 use crate::prelude::*;
-use nu_protocol::{
-    Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
-};
+use nu_errors::ShellError;
+use nu_protocol::{Primitive, ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value};
 use nu_source::Tagged;
 use std::path::{Path, PathBuf};
 

@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::parser::CommandRegistry;
 use crate::prelude::*;
-use nu_protocol::{ShellError, Signature, SyntaxShape};
+use nu_errors::ShellError;
+use nu_protocol::{Signature, SyntaxShape};
 use nu_source::Tagged;
 
 pub struct First;

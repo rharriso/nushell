@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::parser::CommandRegistry;
 use crate::prelude::*;
-use nu_protocol::{ReturnSuccess, ShellError, Signature, SyntaxShape, Value};
+use nu_errors::ShellError;
+use nu_protocol::{ReturnSuccess, Signature, SyntaxShape, Value};
 use nu_source::Tagged;
 
 pub struct Last;

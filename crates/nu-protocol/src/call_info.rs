@@ -1,4 +1,4 @@
-use crate::errors::ShellError;
+use nu_errors::ShellError;
 use crate::value::Value;
 use derive_new::new;
 use indexmap::IndexMap;

@@ -1,6 +1,6 @@
-use crate::errors::ShellError;
 use crate::value::{Primitive, UntaggedValue, Value};
 use indexmap::IndexMap;
+use nu_errors::ShellError;
 use query_interface::{interfaces, vtable_for, Object, ObjectHash};
 use serde::{Deserialize, Serialize};
 use std::cmp::{Ord, Ordering, PartialOrd};

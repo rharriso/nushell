@@ -1,7 +1,7 @@
 use nu::{serve_plugin, value, Plugin};
+use nu_errors::{CoerceInto, ShellError};
 use nu_protocol::{
-    CallInfo, CoerceInto, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature,
-    UntaggedValue, Value,
+    CallInfo, Primitive, ReturnSuccess, ReturnValue, Signature, UntaggedValue, Value,
 };
 use nu_source::TaggedItem;
 

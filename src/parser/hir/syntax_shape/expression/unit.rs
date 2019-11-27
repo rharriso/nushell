@@ -1,4 +1,4 @@
-use crate::parser::hir::syntax_shape::{ExpandContext, ExpandSyntax, ParseError};
+use crate::parser::hir::syntax_shape::{ExpandContext, ExpandSyntax};
 use crate::parser::parse::tokens::RawNumber;
 use crate::parser::parse::tokens::Token;
 use crate::parser::parse::unit::Unit;
@@ -10,6 +10,7 @@ use nom::character::complete::digit1;
 use nom::combinator::{all_consuming, opt, value};
 use nom::IResult;
 use nu_source::{Span, Spanned};
+use nu_errors::ParseError;
 
 #[derive(Debug, Clone)]
 pub struct UnitSyntax {

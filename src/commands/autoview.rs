@@ -3,8 +3,9 @@ use crate::data::value;
 use crate::parser::hir::{Expression, NamedArguments};
 use crate::prelude::*;
 use futures::stream::TryStreamExt;
-use nu_protocol::{Primitive, ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
+use nu_protocol::{Primitive, ReturnSuccess, Signature, UntaggedValue, Value};
 use std::sync::atomic::Ordering;
+use nu_errors::{ShellError};
 
 pub struct Autoview;
 

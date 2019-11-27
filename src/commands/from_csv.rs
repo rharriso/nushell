@@ -1,7 +1,8 @@
 use crate::commands::from_delimited_data::from_delimited_data;
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
-use nu_protocol::{Primitive, ShellError, Signature, SyntaxShape, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Primitive, Signature, SyntaxShape, UntaggedValue, Value};
 
 pub struct FromCSV;
 

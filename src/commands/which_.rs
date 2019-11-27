@@ -1,6 +1,7 @@
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
-use nu_protocol::{Primitive, ShellError, Signature, SyntaxShape, UntaggedValue, Value};
+use nu_protocol::{Primitive, Signature, SyntaxShape, UntaggedValue, Value};
+use nu_errors::ShellError;
 
 pub struct Which;
 

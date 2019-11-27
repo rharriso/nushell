@@ -6,8 +6,9 @@ use derive_new::new;
 use futures::stream::StreamExt;
 use futures_codec::{Decoder, Encoder, Framed};
 use log::{log_enabled, trace};
-use nu_protocol::{CommandAction, Primitive, ReturnSuccess, ShellError, UntaggedValue, Value};
+use nu_protocol::{CommandAction, Primitive, ReturnSuccess, UntaggedValue, Value};
 use nu_source::PrettyDebug;
+use nu_errors::ShellError;
 use std::io::{Error, ErrorKind};
 use subprocess::Exec;
 

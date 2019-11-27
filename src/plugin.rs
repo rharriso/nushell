@@ -1,4 +1,5 @@
-use nu_protocol::{outln, CallInfo, ReturnValue, ShellError, Signature, Value};
+use nu_errors::ShellError;
+use nu_protocol::{outln, CallInfo, ReturnValue, Signature, Value};
 use serde::{Deserialize, Serialize};
 use std::io;
 

@@ -5,9 +5,9 @@ use crate::prelude::*;
 use crate::utils::did_you_mean;
 use futures_util::pin_mut;
 use log::trace;
+use nu_errors::ShellError;
 use nu_protocol::{
-    ColumnPath, ReturnSuccess, ReturnValue, ShellError, Signature, SyntaxShape, UntaggedValue,
-    Value,
+    ColumnPath, ReturnSuccess, ReturnValue, Signature, SyntaxShape, UntaggedValue, Value,
 };
 use nu_source::{span_for_spanned_list, PrettyDebug};
 

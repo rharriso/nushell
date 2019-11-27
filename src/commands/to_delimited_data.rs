@@ -2,7 +2,8 @@ use crate::data::base::property_get::get_data_by_key;
 use crate::prelude::*;
 use csv::WriterBuilder;
 use indexmap::{indexset, IndexSet};
-use nu_protocol::{Primitive, ReturnSuccess, ShellError, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{Primitive, ReturnSuccess, UntaggedValue, Value};
 use nu_source::Spanned;
 
 fn from_value_to_delimited_string(

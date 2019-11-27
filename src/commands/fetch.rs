@@ -2,9 +2,8 @@ use crate::commands::UnevaluatedCallInfo;
 use crate::data::value;
 use crate::prelude::*;
 use mime::Mime;
-use nu_protocol::{
-    CallInfo, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
-};
+use nu_errors::ShellError;
+use nu_protocol::{CallInfo, ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value};
 use nu_source::{AnchorLocation, Span};
 use std::path::PathBuf;
 use std::str::FromStr;

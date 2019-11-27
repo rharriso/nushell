@@ -1,5 +1,5 @@
 use crate::call_info::CallInfo;
-use crate::errors::ShellError;
+use nu_errors::ShellError;
 use crate::return_value::ReturnValue;
 use crate::signature::Signature;
 use crate::value::Value;

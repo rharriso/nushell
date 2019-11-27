@@ -7,9 +7,8 @@ use crate::commands::t_sort_by::t_sort;
 use crate::commands::WholeStreamCommand;
 use crate::data::{value, TaggedDictBuilder};
 use crate::prelude::*;
-use nu_protocol::{
-    Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
-};
+use nu_errors::ShellError;
+use nu_protocol::{Primitive, ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value};
 use nu_source::Tagged;
 use num_traits::cast::ToPrimitive;
 

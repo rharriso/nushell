@@ -2,7 +2,8 @@ use crate::data::value::{format_leaf, style_leaf};
 use crate::format::RenderView;
 use crate::prelude::*;
 use derive_new::new;
-use nu_protocol::{ShellError, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{UntaggedValue, Value};
 use textwrap::fill;
 
 use prettytable::format::{FormatBuilder, LinePosition, LineSeparator};

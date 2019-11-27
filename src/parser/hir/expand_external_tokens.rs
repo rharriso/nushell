@@ -9,7 +9,7 @@ use crate::parser::{
     hir::Expression,
     TokensIterator,
 };
-use nu_protocol::ParseError;
+use nu_errors::ParseError;
 use nu_source::{b, DebugDocBuilder, HasSpan, PrettyDebug, Span, Spanned, SpannedItem};
 
 #[derive(Debug, Clone)]

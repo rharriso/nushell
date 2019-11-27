@@ -19,7 +19,7 @@ use crate::parser::{
     hir::{Expression, TokensIterator},
 };
 use crate::prelude::*;
-use nu_protocol::{ParseError, ShellError};
+use nu_errors::{ParseError, ShellError};
 use nu_source::Spanned;
 use std::path::PathBuf;
 

@@ -2,9 +2,10 @@ use crate::commands::PerItemCommand;
 use crate::data::base::property_get::get_data_by_key;
 use crate::data::{command_dict, TaggedDictBuilder};
 use crate::prelude::*;
+use nu_errors::ShellError;
 use nu_protocol::{
-    CallInfo, NamedType, PositionalType, Primitive, ReturnSuccess, ShellError, Signature,
-    SyntaxShape, UntaggedValue, Value,
+    CallInfo, NamedType, PositionalType, Primitive, ReturnSuccess, Signature, SyntaxShape,
+    UntaggedValue, Value,
 };
 use nu_source::SpannedItem;
 

@@ -1,8 +1,10 @@
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
 use nu_protocol::{
-    Primitive, ReturnSuccess, CoerceInto, ShellError, Signature, UnspannedPathMember, UntaggedValue, Value,
+    Primitive, ReturnSuccess, Signature, UnspannedPathMember, UntaggedValue, Value,
 };
+use nu_errors::{ShellError, CoerceInto};
+
 
 pub struct ToTOML;
 

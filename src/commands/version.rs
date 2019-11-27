@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
 use indexmap::IndexMap;
-use nu_protocol::{Dictionary, ShellError, Signature, UntaggedValue};
+use nu_protocol::{Dictionary, Signature, UntaggedValue};
+use nu_errors::ShellError;
 
 pub struct Version;
 

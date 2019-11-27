@@ -1,7 +1,8 @@
 use crate::commands::WholeStreamCommand;
 use crate::data::value;
 use crate::prelude::*;
-use nu_protocol::{ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value};
+use nu_errors::ShellError;
+use nu_protocol::{ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value};
 use nu_source::{SpannedItem, Tagged};
 
 pub struct EvaluateBy;

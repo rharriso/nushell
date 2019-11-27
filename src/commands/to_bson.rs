@@ -2,9 +2,10 @@ use crate::commands::WholeStreamCommand;
 use crate::data::value;
 use crate::prelude::*;
 use bson::{encode_document, oid::ObjectId, spec::BinarySubtype, Bson, Document};
+use nu_errors::{CoerceInto, ShellError};
 use nu_protocol::{
-    CoerceInto, Dictionary, Primitive, ReturnSuccess, ShellError, Signature, SpannedTypeName,
-    UnspannedPathMember, UntaggedValue, Value,
+    Dictionary, Primitive, ReturnSuccess, Signature, SpannedTypeName, UnspannedPathMember,
+    UntaggedValue, Value,
 };
 use std::convert::TryInto;
 

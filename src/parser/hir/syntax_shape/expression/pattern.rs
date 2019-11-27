@@ -1,11 +1,11 @@
 use crate::parser::hir::syntax_shape::{
     expand_atom, expand_bare, expression::expand_file_path, ExpandContext, ExpandExpression,
-    ExpandSyntax, ExpansionRule, FallibleColorSyntax, FlatShape, ParseError, UnspannedAtomicToken,
+    ExpandSyntax, ExpansionRule, FallibleColorSyntax, FlatShape, UnspannedAtomicToken,
 };
 use crate::parser::parse::tokens::Token;
 use crate::parser::{hir, hir::TokensIterator, Operator, TokenNode, UnspannedToken};
 use crate::prelude::*;
-use nu_protocol::ShellError;
+use nu_errors::{ShellError, ParseError};
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;
 

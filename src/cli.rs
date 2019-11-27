@@ -16,7 +16,8 @@ use crate::parser::{
     TokenNode,
 };
 use crate::prelude::*;
-use nu_protocol::{ParseError, ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
+use nu_errors::{ParseError, ShellError};
+use nu_protocol::{ReturnSuccess, Signature, UntaggedValue, Value};
 use nu_source::{Spanned, Tagged};
 
 use log::{debug, log_enabled, trace};
