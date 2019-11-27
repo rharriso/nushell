@@ -350,7 +350,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut ConfigDeserializer<'de> {
             return visit::<Value, _>(value.val, name, fields, visitor);
         }
 
-        if name == "Block" {
+        if name == "Evaluate" {
             let block = match value.val {
                 Value {
                     value: UntaggedValue::Block(block),
