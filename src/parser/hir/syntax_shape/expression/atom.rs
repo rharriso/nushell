@@ -9,6 +9,7 @@ use crate::parser::{
     DelimitedNode, Delimiter, FlatShape, TokenNode, Unit, UnspannedToken,
 };
 use crate::prelude::*;
+use nu_protocol::{ParseError, ShellError, ShellTypeName};
 use nu_source::Spanned;
 use std::ops::Deref;
 

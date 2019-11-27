@@ -5,6 +5,7 @@ use crate::parser::hir::syntax_shape::{
 use crate::parser::parse::tokens::Token;
 use crate::parser::{hir, hir::TokensIterator, Operator, TokenNode, UnspannedToken};
 use crate::prelude::*;
+use nu_protocol::ShellError;
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;
 

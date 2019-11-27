@@ -2,6 +2,8 @@ use crate::parser::hir::Expression;
 use crate::prelude::*;
 use ansi_term::Color;
 use log::trace;
+use nu_protocol::ParseError;
+use nu_protocol::ShellTypeName;
 use nu_source::DebugDoc;
 use ptree::*;
 use std::borrow::Cow;

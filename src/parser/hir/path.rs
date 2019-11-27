@@ -2,7 +2,8 @@ use crate::parser::hir::Expression;
 use crate::prelude::*;
 use derive_new::new;
 use getset::{Getters, MutGetters};
-use nu_source::{b, span_for_spanned_list, PrettyDebug};
+use nu_protocol::PathMember;
+use nu_source::{b, PrettyDebug};
 use serde::{Deserialize, Serialize};
 
 #[derive(

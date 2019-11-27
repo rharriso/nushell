@@ -1,3 +1,4 @@
+use crate::type_name::PrettyType;
 use crate::value::primitive::Primitive;
 use crate::value::{UntaggedValue, Value};
 use nu_source::{b, DebugDocBuilder, PrettyDebug};
@@ -18,6 +19,27 @@ impl PrettyDebug for Value {
             }
             UntaggedValue::Error(_) => b::error("error"),
             UntaggedValue::Block(_) => b::opaque("block"),
+        }
+    }
+}
+
+impl PrettyType for Primitive {
+    fn pretty_type(&self) -> DebugDocBuilder {
+        match self {
+            Primitive::Nothing => ty("nothing"),
+            Primitive::Int(_) => ty("integer"),
+            Primitive::Decimal(_) => ty("decimal"),
+            Primitive::Bytes(_) => ty("bytesize"),
+            Primitive::String(_) => ty("string"),
+            Primitive::ColumnPath(_) => ty("column-path"),
+            Primitive::Pattern(_) => ty("pattern"),
+            Primitive::Boolean(_) => ty("boolean"),
+            Primitive::Date(_) => ty("date"),
+            Primitive::Duration(_) => ty("duration"),
+            Primitive::Path(_) => ty("path"),
+            Primitive::Binary(_) => ty("binary"),
+            Primitive::BeginningOfStream => b::keyword("beginning-of-stream"),
+            Primitive::EndOfStream => b::keyword("end-of-stream"),
         }
     }
 }
@@ -52,4 +74,8 @@ fn prim(name: impl std::fmt::Debug) -> DebugDocBuilder {
 
 fn primitive_doc(name: impl std::fmt::Debug, ty: impl Into<String>) -> DebugDocBuilder {
     b::primitive(format!("{:?}", name)) + b::delimit("(", b::kind(ty.into()), ")")
+}
+
+fn ty(name: impl std::fmt::Debug) -> DebugDocBuilder {
+    b::kind(format!("{:?}", name))
 }

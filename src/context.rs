@@ -1,11 +1,11 @@
 use crate::commands::{command::CommandArgs, Command, UnevaluatedCallInfo};
 use crate::env::host::Host;
-use crate::errors::ShellError;
 use crate::parser::{hir, hir::syntax_shape::ExpandContext};
 use crate::shell::shell_manager::ShellManager;
 use crate::stream::{InputStream, OutputStream};
 use indexmap::IndexMap;
 use nu_protocol::errln;
+use nu_protocol::ShellError;
 use nu_source::Tag;
 use nu_source::Text;
 use std::error::Error;

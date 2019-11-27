@@ -1,4 +1,3 @@
-use crate::parser::hir::path::PathMember;
 use crate::parser::hir::syntax_shape::{
     color_fallible_syntax, color_fallible_syntax_with, expand_atom, expand_expr, expand_syntax,
     parse_single_node, AnyExpressionShape, BareShape, ExpandContext, ExpandExpression,
@@ -9,6 +8,7 @@ use crate::parser::{
     hir, hir::Expression, hir::TokensIterator, Operator, RawNumber, UnspannedToken,
 };
 use crate::prelude::*;
+use nu_protocol::{PathMember, ShellError, ShellTypeName};
 use nu_source::{Spanned, Tagged};
 use serde::Serialize;
 use std::str::FromStr;

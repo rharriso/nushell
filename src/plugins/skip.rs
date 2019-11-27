@@ -1,6 +1,7 @@
-use nu::{
-    serve_plugin, CallInfo, CoerceInto, Plugin, Primitive, ReturnSuccess, ReturnValue, ShellError,
-    Signature, SyntaxShape, UntaggedValue, Value,
+use nu::{serve_plugin, Plugin};
+use nu_protocol::{
+    CallInfo, CoerceInto, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature,
+    SyntaxShape, UntaggedValue, Value,
 };
 use nu_source::TaggedItem;
 

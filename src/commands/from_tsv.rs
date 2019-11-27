@@ -1,6 +1,7 @@
 use crate::commands::from_delimited_data::from_delimited_data;
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
+use nu_protocol::{ShellError, Signature};
 
 pub struct FromTSV;
 

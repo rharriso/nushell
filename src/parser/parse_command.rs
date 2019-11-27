@@ -1,17 +1,16 @@
-use crate::errors::{ArgumentError, ParseError};
 use crate::parser::hir::syntax_shape::{
     color_fallible_syntax, color_syntax, expand_expr, flat_shape::FlatShape, spaced,
     BackoffColoringMode, ColorSyntax, MaybeSpaceShape,
 };
-use crate::parser::registry::{NamedType, PositionalType, Signature};
 use crate::parser::TokensIterator;
 use crate::parser::{
     hir::{self, ExpandContext, NamedArguments},
     Flag,
 };
 use log::trace;
-use nu_source::{PrettyDebugWithSource, Text};
-use nu_source::{Span, Spanned, SpannedItem};
+use nu_source::{PrettyDebugWithSource, Span, Spanned, SpannedItem, Text};
+
+use nu_protocol::{ArgumentError, NamedType, ParseError, PositionalType, Signature};
 
 pub fn parse_command_tail(
     config: &Signature,

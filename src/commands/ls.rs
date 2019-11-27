@@ -1,6 +1,6 @@
 use crate::commands::WholeStreamCommand;
-use crate::errors::ShellError;
 use crate::prelude::*;
+use nu_protocol::{ShellError, Signature, SyntaxShape};
 use nu_source::Tagged;
 use std::path::PathBuf;
 

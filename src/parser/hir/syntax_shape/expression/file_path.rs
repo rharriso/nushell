@@ -7,6 +7,7 @@ use crate::parser::hir::syntax_shape::{
 };
 use crate::parser::{hir, hir::TokensIterator};
 use crate::prelude::*;
+use nu_protocol::ShellError;
 
 #[derive(Debug, Copy, Clone)]
 pub struct FilePathShape;

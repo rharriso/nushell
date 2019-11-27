@@ -1,7 +1,9 @@
 use crate::commands::WholeStreamCommand;
-use crate::data::base::{Primitive, UntaggedValue, Value};
 use crate::prelude::*;
-use crate::UnspannedPathMember;
+use nu_protocol::{
+    CoerceInto, Primitive, ReturnSuccess, ShellError, Signature, UnspannedPathMember,
+    UntaggedValue, Value,
+};
 
 pub struct ToJSON;
 

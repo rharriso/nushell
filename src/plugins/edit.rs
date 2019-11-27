@@ -1,6 +1,7 @@
-use nu::{
-    serve_plugin, CallInfo, ColumnPath, Plugin, Primitive, ReturnSuccess, ReturnValue, ShellError,
-    Signature, SpannedTypeName, SyntaxShape, UntaggedValue, Value,
+use nu::{serve_plugin, Plugin, ValueExt};
+use nu_protocol::{
+    CallInfo, ColumnPath, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature,
+    SpannedTypeName, SyntaxShape, UntaggedValue, Value,
 };
 use nu_source::Tagged;
 

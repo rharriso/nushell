@@ -2,12 +2,11 @@ use crate::commands::classified::InternalCommand;
 use crate::commands::ClassifiedCommand;
 use crate::env::host::BasicHost;
 use crate::parser::hir::TokensIterator;
-use crate::parser::hir::{
-    self, named::NamedValue, path::PathMember, syntax_shape::*, NamedArguments,
-};
+use crate::parser::hir::{self, named::NamedValue, syntax_shape::*, NamedArguments};
 use crate::parser::parse::token_tree_builder::{CurriedToken, TokenTreeBuilder as b};
 use crate::parser::TokenNode;
 use indexmap::IndexMap;
+use nu_protocol::PathMember;
 use nu_source::{HasSpan, Span, Tag, Text};
 use pretty_assertions::assert_eq;
 use std::fmt::Debug;

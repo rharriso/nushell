@@ -1,7 +1,7 @@
 use crate::commands::command::WholeStreamCommand;
-use crate::parser::registry::{CommandRegistry, Signature};
+use crate::parser::registry::CommandRegistry;
 use crate::prelude::*;
-use nu_protocol::{CommandAction, ShellError};
+use nu_protocol::{CommandAction, ReturnSuccess, ShellError, Signature};
 
 pub struct Exit;
 

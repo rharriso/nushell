@@ -1,8 +1,10 @@
 use crate::commands::UnevaluatedCallInfo;
-use crate::parser::hir::SyntaxShape;
+use crate::data::value;
 use crate::prelude::*;
 use mime::Mime;
-use nu_protocol::{ShellError, Signature, Value};
+use nu_protocol::{
+    CallInfo, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
+};
 use nu_source::{AnchorLocation, Span};
 use std::path::PathBuf;
 use std::str::FromStr;
@@ -145,7 +147,7 @@ pub async fn fetch(
                 match (content_type.type_(), content_type.subtype()) {
                     (mime::APPLICATION, mime::XML) => Ok((
                         Some("xml".to_string()),
-                        UntaggedValue::string(r.body_string().await.map_err(|_| {
+                        value::string(r.body_string().await.map_err(|_| {
                             ShellError::labeled_error(
                                 "Could not load text from remote url",
                                 "could not load",
@@ -159,7 +161,7 @@ pub async fn fetch(
                     )),
                     (mime::APPLICATION, mime::JSON) => Ok((
                         Some("json".to_string()),
-                        UntaggedValue::string(r.body_string().await.map_err(|_| {
+                        value::string(r.body_string().await.map_err(|_| {
                             ShellError::labeled_error(
                                 "Could not load text from remote url",
                                 "could not load",
@@ -181,7 +183,7 @@ pub async fn fetch(
                         })?;
                         Ok((
                             None,
-                            UntaggedValue::binary(buf),
+                            value::binary(buf),
                             Tag {
                                 span,
                                 anchor: Some(AnchorLocation::Url(location.to_string())),
@@ -190,7 +192,7 @@ pub async fn fetch(
                     }
                     (mime::IMAGE, mime::SVG) => Ok((
                         Some("svg".to_string()),
-                        UntaggedValue::string(r.body_string().await.map_err(|_| {
+                        value::string(r.body_string().await.map_err(|_| {
                             ShellError::labeled_error(
                                 "Could not load svg from remote url",
                                 "could not load",
@@ -212,7 +214,7 @@ pub async fn fetch(
                         })?;
                         Ok((
                             Some(image_ty.to_string()),
-                            UntaggedValue::binary(buf),
+                            value::binary(buf),
                             Tag {
                                 span,
                                 anchor: Some(AnchorLocation::Url(location.to_string())),
@@ -221,7 +223,7 @@ pub async fn fetch(
                     }
                     (mime::TEXT, mime::HTML) => Ok((
                         Some("html".to_string()),
-                        UntaggedValue::string(r.body_string().await.map_err(|_| {
+                        value::string(r.body_string().await.map_err(|_| {
                             ShellError::labeled_error(
                                 "Could not load text from remote url",
                                 "could not load",
@@ -247,7 +249,7 @@ pub async fn fetch(
 
                         Ok((
                             path_extension,
-                            UntaggedValue::string(r.body_string().await.map_err(|_| {
+                            value::string(r.body_string().await.map_err(|_| {
                                 ShellError::labeled_error(
                                     "Could not load text from remote url",
                                     "could not load",
@@ -262,10 +264,7 @@ pub async fn fetch(
                     }
                     (ty, sub_ty) => Ok((
                         None,
-                        UntaggedValue::string(format!(
-                            "Not yet supported MIME type: {} {}",
-                            ty, sub_ty
-                        )),
+                        value::string(format!("Not yet supported MIME type: {} {}", ty, sub_ty)),
                         Tag {
                             span,
                             anchor: Some(AnchorLocation::Url(location.to_string())),
@@ -275,7 +274,7 @@ pub async fn fetch(
             }
             None => Ok((
                 None,
-                UntaggedValue::string(format!("No content type found")),
+                value::string(format!("No content type found")),
                 Tag {
                     span,
                     anchor: Some(AnchorLocation::Url(location.to_string())),

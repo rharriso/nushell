@@ -89,30 +89,27 @@ macro_rules! dict {
 
 pub(crate) use nu_protocol::{errln, outln};
 
-pub(crate) use crate::cli::MaybeOwned;
 pub(crate) use crate::commands::command::{
-    CallInfo, CommandAction, CommandArgs, ReturnSuccess, ReturnValue, RunnableContext,
+    CallInfoExt, CommandArgs, PerItemCommand, RawCommandArgs, RunnableContext,
 };
-pub(crate) use crate::commands::PerItemCommand;
-pub(crate) use crate::commands::RawCommandArgs;
 pub(crate) use crate::context::CommandRegistry;
 pub(crate) use crate::context::Context;
+pub(crate) use crate::data::base::property_get::ValueExt;
 pub(crate) use crate::data::types::ExtractType;
+pub(crate) use crate::data::value;
 pub(crate) use crate::env::host::handle_unexpected;
 pub(crate) use crate::env::Host;
-pub(crate) use crate::errors::{CoerceInto, ParseError, ShellError};
-pub(crate) use crate::parser::hir::SyntaxShape;
 pub(crate) use crate::parser::parse::parser::Number;
 pub(crate) use crate::shell::filesystem_shell::FilesystemShell;
 pub(crate) use crate::shell::help_shell::HelpShell;
 pub(crate) use crate::shell::shell_manager::ShellManager;
 pub(crate) use crate::shell::value_shell::ValueShell;
 pub(crate) use crate::stream::{InputStream, OutputStream};
-pub(crate) use crate::traits::{ShellTypeName, SpannedTypeName};
 pub(crate) use async_stream::stream as async_stream;
 pub(crate) use bigdecimal::BigDecimal;
 pub(crate) use futures::stream::BoxStream;
 pub(crate) use futures::{FutureExt, Stream, StreamExt};
+pub(crate) use nu_protocol::{EvaluateTrait, MaybeOwned};
 pub(crate) use nu_source::{
     b, AnchorLocation, DebugDocBuilder, HasFallibleSpan, HasSpan, PrettyDebug,
     PrettyDebugWithSource, Span, SpannedItem, Tag, TaggedItem, Text,
@@ -133,11 +130,11 @@ pub trait FromInputStream {
 
 impl<T> FromInputStream for T
 where
-    T: Stream<Item = Value> + Send + 'static,
+    T: Stream<Item = nu_protocol::Value> + Send + 'static,
 {
     fn from_input_stream(self) -> OutputStream {
         OutputStream {
-            values: self.map(ReturnSuccess::value).boxed(),
+            values: self.map(nu_protocol::ReturnSuccess::value).boxed(),
         }
     }
 }
@@ -149,7 +146,7 @@ pub trait ToInputStream {
 impl<T, U> ToInputStream for T
 where
     T: Stream<Item = U> + Send + 'static,
-    U: Into<Result<Value, ShellError>>,
+    U: Into<Result<nu_protocol::Value, nu_protocol::ShellError>>,
 {
     fn to_input_stream(self) -> InputStream {
         InputStream {
@@ -165,7 +162,7 @@ pub trait ToOutputStream {
 impl<T, U> ToOutputStream for T
 where
     T: Stream<Item = U> + Send + 'static,
-    U: Into<ReturnValue>,
+    U: Into<nu_protocol::ReturnValue>,
 {
     fn to_output_stream(self) -> OutputStream {
         OutputStream {

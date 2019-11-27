@@ -1,3 +1,4 @@
+use crate::type_name::ShellTypeName;
 use crate::value::column_path::ColumnPath;
 use crate::value::{serde_bigdecimal, serde_bigint};
 use bigdecimal::BigDecimal;
@@ -39,5 +40,26 @@ impl From<BigDecimal> for Primitive {
 impl From<f64> for Primitive {
     fn from(float: f64) -> Primitive {
         Primitive::Decimal(BigDecimal::from_f64(float).unwrap())
+    }
+}
+
+impl ShellTypeName for Primitive {
+    fn type_name(&self) -> &'static str {
+        match self {
+            Primitive::Nothing => "nothing",
+            Primitive::Int(_) => "integer",
+            Primitive::Decimal(_) => "decimal",
+            Primitive::Bytes(_) => "bytes",
+            Primitive::String(_) => "string",
+            Primitive::ColumnPath(_) => "column path",
+            Primitive::Pattern(_) => "pattern",
+            Primitive::Boolean(_) => "boolean",
+            Primitive::Date(_) => "date",
+            Primitive::Duration(_) => "duration",
+            Primitive::Path(_) => "file path",
+            Primitive::Binary(_) => "binary",
+            Primitive::BeginningOfStream => "marker<beginning of stream>",
+            Primitive::EndOfStream => "marker<end of stream>",
+        }
     }
 }

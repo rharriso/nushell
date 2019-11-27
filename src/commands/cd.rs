@@ -1,6 +1,6 @@
 use crate::commands::WholeStreamCommand;
 use crate::prelude::*;
-use nu_protocol::ShellError;
+use nu_protocol::{ShellError, SyntaxShape, Signature};
 
 pub struct CD;
 

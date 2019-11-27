@@ -1,5 +1,4 @@
-use crate::prelude::*;
-use nu_source::{DebugDocBuilder, Spanned, SpannedItem, Tagged};
+use nu_source::{DebugDocBuilder, HasSpan, Spanned, SpannedItem, Tagged};
 
 pub trait ShellTypeName {
     fn type_name(&self) -> &'static str;

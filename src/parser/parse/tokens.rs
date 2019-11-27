@@ -1,5 +1,6 @@
 use crate::parser::Operator;
 use crate::prelude::*;
+use nu_protocol::ShellTypeName;
 use nu_source::{Spanned, Text};
 use std::fmt;
 use std::str::FromStr;

@@ -1,9 +1,10 @@
 use crate::commands::WholeStreamCommand;
 use crate::data::config;
-use crate::parser::hir::SyntaxShape;
 use crate::parser::registry::{self};
 use crate::prelude::*;
-use nu_protocol::{ShellError, Value};
+use nu_protocol::{
+    Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
+};
 use nu_source::Tagged;
 use std::path::PathBuf;
 

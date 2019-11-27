@@ -1,8 +1,8 @@
-use crate::errors::{ParseError, ShellError};
 use crate::parser::parse::{call_node::*, flag::*, operator::*, pipeline::*, tokens::*};
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
+use nu_protocol::{ParseError, ShellError, ShellTypeName};
 use nu_source::Spanned;
 use nu_source::{Tagged, Text};
 use std::fmt;

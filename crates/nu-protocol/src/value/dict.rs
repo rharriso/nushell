@@ -6,11 +6,53 @@ use getset::Getters;
 use indexmap::IndexMap;
 use nu_source::{b, DebugDocBuilder, PrettyDebug, Spanned, Tag};
 use serde::{Deserialize, Serialize};
+use std::cmp::{Ord, Ordering, PartialOrd};
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone, Getters, new)]
+#[derive(Debug, Default, Serialize, Deserialize, PartialEq, Eq, Clone, Getters, new)]
 pub struct Dictionary {
     #[get = "pub"]
     pub entries: IndexMap<String, Value>,
+}
+
+impl PartialOrd for Dictionary {
+    fn partial_cmp(&self, other: &Dictionary) -> Option<Ordering> {
+        let this: Vec<&String> = self.entries.keys().collect();
+        let that: Vec<&String> = other.entries.keys().collect();
+
+        if this != that {
+            return this.partial_cmp(&that);
+        }
+
+        let this: Vec<&Value> = self.entries.values().collect();
+        let that: Vec<&Value> = self.entries.values().collect();
+
+        this.partial_cmp(&that)
+    }
+}
+
+impl Ord for Dictionary {
+    fn cmp(&self, other: &Dictionary) -> Ordering {
+        let this: Vec<&String> = self.entries.keys().collect();
+        let that: Vec<&String> = other.entries.keys().collect();
+
+        if this != that {
+            return this.cmp(&that);
+        }
+
+        let this: Vec<&Value> = self.entries.values().collect();
+        let that: Vec<&Value> = self.entries.values().collect();
+
+        this.cmp(&that)
+    }
+}
+
+impl PartialEq<Value> for Dictionary {
+    fn eq(&self, other: &Value) -> bool {
+        match &other.value {
+            UntaggedValue::Row(d) => self == d,
+            _ => false,
+        }
+    }
 }
 
 #[derive(Debug, new)]
@@ -66,7 +108,7 @@ impl Dictionary {
         self.entries.keys()
     }
 
-    pub(crate) fn get_data_by_key(&self, name: Spanned<&str>) -> Option<Value> {
+    pub fn get_data_by_key(&self, name: Spanned<&str>) -> Option<Value> {
         let result = self
             .entries
             .iter()
@@ -81,7 +123,7 @@ impl Dictionary {
         )
     }
 
-    pub(crate) fn get_mut_data_by_key(&mut self, name: &str) -> Option<&mut Value> {
+    pub fn get_mut_data_by_key(&mut self, name: &str) -> Option<&mut Value> {
         match self
             .entries
             .iter_mut()
@@ -92,7 +134,7 @@ impl Dictionary {
         }
     }
 
-    pub(crate) fn insert_data_at_key(&mut self, name: &str, value: Value) {
+    pub fn insert_data_at_key(&mut self, name: &str, value: Value) {
         self.entries.insert(name.to_string(), value);
     }
 }

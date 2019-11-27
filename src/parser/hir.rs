@@ -7,17 +7,16 @@ pub(crate) mod path;
 pub(crate) mod syntax_shape;
 pub(crate) mod tokens_iterator;
 
-use crate::parser::hir::path::PathMember;
 use crate::parser::hir::syntax_shape::Member;
 use crate::parser::{registry, Operator, Unit};
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
+use nu_protocol::{EvaluatedArgs, PathMember, Scope, ShellError, ShellTypeName};
 use nu_source::Spanned;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
-use crate::evaluate::Scope;
 use crate::parser::parse::tokens::RawNumber;
 
 pub(crate) use self::binary::Binary;
@@ -26,8 +25,6 @@ pub(crate) use self::named::NamedArguments;
 pub(crate) use self::path::Path;
 pub(crate) use self::syntax_shape::ExpandContext;
 pub(crate) use self::tokens_iterator::TokensIterator;
-
-pub use self::syntax_shape::SyntaxShape;
 
 #[derive(Debug, Clone, Eq, PartialEq, Getters, Serialize, Deserialize, new)]
 pub struct Call {
@@ -66,7 +63,7 @@ impl Call {
         registry: &registry::CommandRegistry,
         scope: &Scope,
         source: &Text,
-    ) -> Result<registry::EvaluatedArgs, ShellError> {
+    ) -> Result<EvaluatedArgs, ShellError> {
         registry::evaluate_args(self, registry, scope, source)
     }
 }

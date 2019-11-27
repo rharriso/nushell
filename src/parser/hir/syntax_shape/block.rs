@@ -1,4 +1,3 @@
-use crate::errors::ShellError;
 #[cfg(not(coloring_in_tokens))]
 use crate::parser::hir::syntax_shape::FlatShape;
 use crate::parser::{
@@ -6,12 +5,14 @@ use crate::parser::{
     hir::syntax_shape::{
         color_fallible_syntax, color_syntax_with, continue_expression, expand_expr, expand_syntax,
         DelimitedShape, ExpandContext, ExpandExpression, ExpressionContinuationShape,
-        ExpressionListShape, FallibleColorSyntax, MemberShape, ParseError, PathTailShape,
-        PathTailSyntax, VariablePathShape,
+        ExpressionListShape, FallibleColorSyntax, MemberShape, PathTailShape, PathTailSyntax,
+        VariablePathShape,
     },
     hir::tokens_iterator::TokensIterator,
     parse::token_tree::Delimiter,
 };
+use nu_protocol::ParseError;
+use nu_protocol::ShellError;
 use nu_source::Span;
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;

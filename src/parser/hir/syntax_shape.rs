@@ -16,8 +16,8 @@ use crate::parser::{hir, hir::TokensIterator, Operator, TokenNode, UnspannedToke
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
+use nu_protocol::{ParseError, ShellError, ShellTypeName, Signature};
 use nu_source::Spanned;
-use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 
 pub(crate) use self::expression::atom::{
@@ -46,35 +46,7 @@ use crate::parser::hir::tokens_iterator::debug::debug_tokens;
 use crate::parser::parse::pipeline::Pipeline;
 #[cfg(not(coloring_in_tokens))]
 use log::{log_enabled, trace};
-
-#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
-pub enum SyntaxShape {
-    Any,
-    String,
-    Member,
-    ColumnPath,
-    Number,
-    Int,
-    Path,
-    Pattern,
-    Block,
-}
-
-impl PrettyDebug for SyntaxShape {
-    fn pretty(&self) -> DebugDocBuilder {
-        b::kind(match self {
-            SyntaxShape::Any => "any shape",
-            SyntaxShape::String => "string shape",
-            SyntaxShape::Member => "member shape",
-            SyntaxShape::ColumnPath => "column path shape",
-            SyntaxShape::Number => "number shape",
-            SyntaxShape::Int => "integer shape",
-            SyntaxShape::Path => "file path shape",
-            SyntaxShape::Pattern => "pattern shape",
-            SyntaxShape::Block => "block shape",
-        })
-    }
-}
+use nu_protocol::SyntaxShape;
 
 #[cfg(not(coloring_in_tokens))]
 impl FallibleColorSyntax for SyntaxShape {

@@ -21,6 +21,8 @@ members = ["crates/nu-source", "crates/nu-textview", "crates/nu-protocol"]
 nu-source = { path = "./crates/nu-source" }
 nu-protocol = { path = "./crates/nu-protocol" }
 
+query_interface = "0.3.5"
+typetag = "0.1.4"
 rustyline = "5.0.4"
 chrono = { version = "0.4.9", features = ["serde"] }
 derive-new = "0.5.8"

@@ -1,8 +1,9 @@
 use crate::commands::WholeStreamCommand;
+use crate::data::value;
 use crate::parser::CommandRegistry;
 use crate::prelude::*;
 use futures::stream::StreamExt;
-use nu_protocol::{ShellError, Value};
+use nu_protocol::{ReturnSuccess, ShellError, Signature, Value};
 
 pub struct Count;
 
@@ -38,7 +39,7 @@ pub fn count(
     let stream = async_stream! {
         let rows: Vec<Value> = input.values.collect().await;
 
-        yield ReturnSuccess::value(UntaggedValue::int(rows.len()).into_value(name))
+        yield ReturnSuccess::value(value::int(rows.len()).into_value(name))
     };
 
     Ok(stream.to_output_stream())

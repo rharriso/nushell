@@ -1,8 +1,7 @@
 use crate::commands::command::RunnablePerItemContext;
-use crate::parser::hir::SyntaxShape;
 use crate::parser::registry::CommandRegistry;
 use crate::prelude::*;
-use nu_protocol::{ShellError, Signature};
+use nu_protocol::{CallInfo, ShellError, Signature, SyntaxShape, Value};
 use nu_source::Tagged;
 use std::path::PathBuf;
 

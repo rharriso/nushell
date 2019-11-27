@@ -3,6 +3,7 @@ use crate::parser::hir::syntax_shape::{
 };
 use crate::parser::{hir, hir::TokensIterator, Delimiter, FlatShape};
 use crate::prelude::*;
+use nu_protocol::ParseError;
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;
 

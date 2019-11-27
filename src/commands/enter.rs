@@ -1,8 +1,12 @@
 use crate::commands::PerItemCommand;
 use crate::commands::UnevaluatedCallInfo;
+use crate::data::value;
 use crate::parser::registry;
 use crate::prelude::*;
-use nu_protocol::{CommandAction, ShellError};
+use nu_protocol::{
+    CallInfo, CommandAction, Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape,
+    UntaggedValue, Value,
+};
 use std::path::PathBuf;
 
 pub struct Enter;
@@ -12,7 +16,7 @@ impl PerItemCommand for Enter {
         "enter"
     }
 
-    fn signature(&self) -> registry::Signature {
+    fn signature(&self) -> Signature {
         Signature::build("enter").required(
             "location",
             SyntaxShape::Path,
@@ -50,12 +54,12 @@ impl PerItemCommand for Enter {
 
                     if registry.has(command) {
                         Ok(vec![Ok(ReturnSuccess::Action(CommandAction::EnterHelpShell(
-                            UntaggedValue::string(command).into_value(Tag::unknown()),
+                            value::string(command).into_value(Tag::unknown()),
                         )))]
                         .into())
                     } else {
                         Ok(vec![Ok(ReturnSuccess::Action(CommandAction::EnterHelpShell(
-                            UntaggedValue::nothing().into_value(Tag::unknown()),
+                            value::nothing().into_value(Tag::unknown()),
                         )))]
                         .into())
                     }

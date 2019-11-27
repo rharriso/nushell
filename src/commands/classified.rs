@@ -1,3 +1,4 @@
+use crate::data::value;
 use crate::parser::{hir, TokenNode};
 use crate::prelude::*;
 use bytes::{BufMut, BytesMut};
@@ -5,6 +6,7 @@ use derive_new::new;
 use futures::stream::StreamExt;
 use futures_codec::{Decoder, Encoder, Framed};
 use log::{log_enabled, trace};
+use nu_protocol::{CommandAction, Primitive, ReturnSuccess, ShellError, UntaggedValue, Value};
 use nu_source::PrettyDebug;
 use std::io::{Error, ErrorKind};
 use subprocess::Exec;
@@ -53,7 +55,7 @@ pub(crate) struct ClassifiedInputStream {
 impl ClassifiedInputStream {
     pub(crate) fn new() -> ClassifiedInputStream {
         ClassifiedInputStream {
-            objects: vec![UntaggedValue::nothing().into_value(Tag::unknown())].into(),
+            objects: vec![value::nothing().into_value(Tag::unknown())].into(),
             stdin: None,
         }
     }
@@ -228,7 +230,7 @@ impl InternalCommand {
                                 } => {
                                     context.shell_manager.insert_at_current(Box::new(
                                         HelpShell::for_command(
-                                            UntaggedValue::string(cmd).into_value(tag),
+                                            value::string(cmd).into_value(tag),
                                             &context.registry(),
                                         ).unwrap(),
                                     ));
@@ -282,7 +284,7 @@ impl InternalCommand {
 
                         let value = String::from_utf8_lossy(buffer.as_slice());
 
-                        yield Ok(UntaggedValue::string(value).into_untagged_value())
+                        yield Ok(value::string(value).into_untagged_value())
                     }
 
                     Err(err) => {
@@ -494,9 +496,8 @@ impl ExternalCommand {
                     let stdout = popen.stdout.take().unwrap();
                     let file = futures::io::AllowStdIo::new(stdout);
                     let stream = Framed::new(file, LinesCodec {});
-                    let stream = stream.map(move |line| {
-                        UntaggedValue::string(line.unwrap()).into_value(&name_tag)
-                    });
+                    let stream =
+                        stream.map(move |line| value::string(line.unwrap()).into_value(&name_tag));
                     Ok(ClassifiedInputStream::from_input_stream(
                         stream.boxed() as BoxStream<'static, Value>
                     ))

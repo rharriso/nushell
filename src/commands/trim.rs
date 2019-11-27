@@ -1,7 +1,7 @@
 use crate::commands::WholeStreamCommand;
 
-use crate::errors::ShellError;
 use crate::prelude::*;
+use nu_protocol::{ReturnSuccess, ShellError, Signature};
 
 pub struct Trim;
 
@@ -34,7 +34,7 @@ fn trim(args: CommandArgs, _registry: &CommandRegistry) -> Result<OutputStream, 
         .values
         .map(move |v| {
             let string = String::extract(&v)?;
-            ReturnSuccess::value(UntaggedValue::string(string.trim()).into_value(v.tag()))
+            ReturnSuccess::value(value::string(string.trim()).into_value(v.tag()))
         })
         .to_output_stream())
 }

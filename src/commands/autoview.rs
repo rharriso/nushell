@@ -1,8 +1,9 @@
 use crate::commands::{RawCommandArgs, WholeStreamCommand};
+use crate::data::value;
 use crate::parser::hir::{Expression, NamedArguments};
 use crate::prelude::*;
 use futures::stream::TryStreamExt;
-use nu_protocol::ShellError;
+use nu_protocol::{Primitive, ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
 use std::sync::atomic::Ordering;
 
 pub struct Autoview;
@@ -137,7 +138,7 @@ pub fn autoview(
                                 } if anchor.is_some() => {
                                     if let Some(text) = text {
                                         let mut stream = VecDeque::new();
-                                        stream.push_back(UntaggedValue::string(s).into_value(Tag { anchor, span }));
+                                        stream.push_back(value::string(s).into_value(Tag { anchor, span }));
                                         let result = text.run(raw.with_input(stream.into()), &context.commands);
                                         result.collect::<Vec<_>>().await;
                                     } else {
@@ -149,6 +150,24 @@ pub fn autoview(
                                     ..
                                 } => {
                                     outln!("{}", s);
+                                }
+                                Value {
+                                    value: UntaggedValue::Primitive(Primitive::Path(s)),
+                                    ..
+                                } => {
+                                    outln!("{}", s.display());
+                                }
+                                Value {
+                                    value: UntaggedValue::Primitive(Primitive::Int(n)),
+                                    ..
+                                } => {
+                                    outln!("{}", n);
+                                }
+                                Value {
+                                    value: UntaggedValue::Primitive(Primitive::Decimal(n)),
+                                    ..
+                                } => {
+                                    outln!("{}", n);
                                 }
 
                                 Value { value: UntaggedValue::Primitive(Primitive::Binary(ref b)), .. } => {
@@ -188,7 +207,7 @@ pub fn autoview(
 
         // Needed for async_stream to type check
         if false {
-            yield ReturnSuccess::value(UntaggedValue::nothing().into_untagged_value());
+            yield ReturnSuccess::value(value::nothing().into_untagged_value());
         }
     }))
 }

@@ -1,7 +1,10 @@
 use crate::commands::WholeStreamCommand;
-use crate::errors::ShellError;
+use crate::data::value;
 use crate::format::TableView;
 use crate::prelude::*;
+use nu_protocol::{
+    Primitive, ReturnSuccess, ShellError, Signature, SyntaxShape, UntaggedValue, Value,
+};
 
 pub struct Table;
 
@@ -56,7 +59,7 @@ fn table(args: CommandArgs, registry: &CommandRegistry) -> Result<OutputStream, 
         }
         // Needed for async_stream to type check
         if false {
-            yield ReturnSuccess::value(UntaggedValue::nothing().into_value(Tag::unknown()));
+            yield ReturnSuccess::value(value::nothing().into_value(Tag::unknown()));
         }
     };
 

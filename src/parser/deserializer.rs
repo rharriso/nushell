@@ -1,7 +1,9 @@
-use crate::data::base::Block;
 use crate::prelude::*;
-use crate::ColumnPath;
 use log::trace;
+use nu_protocol::{
+    CallInfo, CoerceInto, ColumnPath, Evaluate, Primitive, ShellError, ShellTypeName,
+    UntaggedValue, Value,
+};
 use nu_source::Tagged;
 use serde::de;
 use std::path::PathBuf;
@@ -55,7 +57,7 @@ impl<'de> ConfigDeserializer<'de> {
 
         self.stack.push(DeserializerItem {
             key_struct_field: Some((name.to_string(), name)),
-            val: value.unwrap_or_else(|| UntaggedValue::nothing().into_value(&self.call.name_tag)),
+            val: value.unwrap_or_else(|| value::nothing().into_value(&self.call.name_tag)),
         });
 
         Ok(())
@@ -361,7 +363,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut ConfigDeserializer<'de> {
                     ))
                 }
             };
-            return visit::<Block, _>(block, name, fields, visitor);
+            return visit::<Evaluate, _>(block, name, fields, visitor);
         }
 
         if name == "ColumnPath" {

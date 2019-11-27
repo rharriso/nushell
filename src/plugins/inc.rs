@@ -1,6 +1,7 @@
-use nu::{
-    did_you_mean, serve_plugin, CallInfo, ColumnPath, Plugin, Primitive, ReturnSuccess,
-    ReturnValue, ShellError, ShellTypeName, Signature, SyntaxShape, UntaggedValue, Value,
+use nu::{did_you_mean, serve_plugin, value, Plugin, ValueExt};
+use nu_protocol::{
+    CallInfo, ColumnPath, Primitive, ReturnSuccess, ReturnValue, ShellError, ShellTypeName,
+    Signature, SyntaxShape, UntaggedValue, Value,
 };
 use nu_source::{span_for_spanned_list, HasSpan, SpannedItem, Tagged};
 
@@ -35,7 +36,7 @@ impl Inc {
             Some(Action::SemVerAction(act_on)) => {
                 let mut ver = match semver::Version::parse(&input) {
                     Ok(parsed_ver) => parsed_ver,
-                    Err(_) => return Ok(UntaggedValue::string(input.to_string())),
+                    Err(_) => return Ok(value::string(input.to_string())),
                 };
 
                 match act_on {
@@ -44,11 +45,11 @@ impl Inc {
                     SemVerAction::Patch => ver.increment_patch(),
                 }
 
-                UntaggedValue::string(ver.to_string())
+                value::string(ver.to_string())
             }
             Some(Action::Default) | None => match input.parse::<u64>() {
-                Ok(v) => UntaggedValue::string(format!("{}", v + 1)),
-                Err(_) => UntaggedValue::string(input),
+                Ok(v) => value::string(format!("{}", v + 1)),
+                Err(_) => value::string(input),
             },
         };
 
@@ -78,10 +79,10 @@ impl Inc {
     fn inc(&self, value: Value) -> Result<Value, ShellError> {
         match &value.value {
             UntaggedValue::Primitive(Primitive::Int(i)) => {
-                Ok(UntaggedValue::int(i + 1).into_value(value.tag()))
+                Ok(value::int(i + 1).into_value(value.tag()))
             }
             UntaggedValue::Primitive(Primitive::Bytes(b)) => {
-                Ok(UntaggedValue::bytes(b + 1 as u64).into_value(value.tag()))
+                Ok(value::bytes(b + 1 as u64).into_value(value.tag()))
             }
             UntaggedValue::Primitive(Primitive::String(ref s)) => {
                 Ok(self.apply(&s)?.into_value(value.tag()))
@@ -224,9 +225,10 @@ mod tests {
 
     use super::{Inc, SemVerAction};
     use indexmap::IndexMap;
-    use nu::{
-        CallInfo, EvaluatedArgs, PathMember, Plugin, ReturnSuccess, TaggedDictBuilder,
-        UnspannedPathMember, UntaggedValue, Value,
+    use nu::{value, Plugin, TaggedDictBuilder};
+    use nu_protocol::{
+        CallInfo, EvaluatedArgs, PathMember, ReturnSuccess, UnspannedPathMember, UntaggedValue,
+        Value,
     };
     use nu_source::{Span, Tag};
 
@@ -246,7 +248,7 @@ mod tests {
         fn with_long_flag(&mut self, name: &str) -> &mut Self {
             self.flags.insert(
                 name.to_string(),
-                UntaggedValue::boolean(true).into_value(Tag::unknown()),
+                value::boolean(true).into_value(Tag::unknown()),
             );
             self
         }
@@ -260,7 +262,7 @@ mod tests {
                 .collect();
 
             self.positionals
-                .push(UntaggedValue::column_path(fields).into_untagged_value());
+                .push(value::column_path(fields).into_untagged_value());
             self
         }
 
@@ -274,7 +276,7 @@ mod tests {
 
     fn cargo_sample_record(with_version: &str) -> Value {
         let mut package = TaggedDictBuilder::new(Tag::unknown());
-        package.insert_untagged("version", UntaggedValue::string(with_version));
+        package.insert_untagged("version", value::string(with_version));
         package.into_value()
     }
 
@@ -357,21 +359,21 @@ mod tests {
     fn incs_major() {
         let mut inc = Inc::new();
         inc.for_semver(SemVerAction::Major);
-        assert_eq!(inc.apply("0.1.3").unwrap(), UntaggedValue::string("1.0.0"));
+        assert_eq!(inc.apply("0.1.3").unwrap(), value::string("1.0.0"));
     }
 
     #[test]
     fn incs_minor() {
         let mut inc = Inc::new();
         inc.for_semver(SemVerAction::Minor);
-        assert_eq!(inc.apply("0.1.3").unwrap(), UntaggedValue::string("0.2.0"));
+        assert_eq!(inc.apply("0.1.3").unwrap(), value::string("0.2.0"));
     }
 
     #[test]
     fn incs_patch() {
         let mut inc = Inc::new();
         inc.for_semver(SemVerAction::Patch);
-        assert_eq!(inc.apply("0.1.3").unwrap(), UntaggedValue::string("0.1.4"));
+        assert_eq!(inc.apply("0.1.3").unwrap(), value::string("0.1.4"));
     }
 
     #[test]
@@ -396,7 +398,7 @@ mod tests {
                 ..
             }) => assert_eq!(
                 *o.get_data(&String::from("version")).borrow(),
-                UntaggedValue::string(String::from("1.0.0")).into_untagged_value()
+                value::string(String::from("1.0.0")).into_untagged_value()
             ),
             _ => {}
         }
@@ -424,7 +426,7 @@ mod tests {
                 ..
             }) => assert_eq!(
                 *o.get_data(&String::from("version")).borrow(),
-                UntaggedValue::string(String::from("0.2.0")).into_untagged_value()
+                value::string(String::from("0.2.0")).into_untagged_value()
             ),
             _ => {}
         }
@@ -453,7 +455,7 @@ mod tests {
                 ..
             }) => assert_eq!(
                 *o.get_data(&field).borrow(),
-                UntaggedValue::string(String::from("0.1.4")).into_untagged_value()
+                value::string(String::from("0.1.4")).into_untagged_value()
             ),
             _ => {}
         }

@@ -1,7 +1,7 @@
 use crate::commands::to_delimited_data::to_delimited_data;
 use crate::commands::WholeStreamCommand;
-use crate::data::{Primitive, Value};
 use crate::prelude::*;
+use nu_protocol::{Primitive, ShellError, Signature, UntaggedValue, Value};
 
 pub struct ToCSV;
 

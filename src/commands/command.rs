@@ -1,13 +1,11 @@
-use crate::evaluate::Scope;
 use crate::parser::hir;
 use crate::parser::{registry, ConfigDeserializer};
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
-use nu_protocol::{ShellError, Value};
+use nu_protocol::{CallInfo, EvaluatedArgs, ReturnValue, Scope, ShellError, Signature, Value};
 use serde::{Deserialize, Serialize};
 use std::ops::Deref;
-use std::path::PathBuf;
 use std::sync::atomic::AtomicBool;
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -32,14 +30,16 @@ impl UnevaluatedCallInfo {
     }
 }
 
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct CallInfo {
-    pub args: registry::EvaluatedArgs,
-    pub name_tag: Tag,
+pub trait CallInfoExt {
+    fn process<'de, T: Deserialize<'de>>(
+        &self,
+        shell_manager: &ShellManager,
+        callback: fn(T, &RunnablePerItemContext) -> Result<OutputStream, ShellError>,
+    ) -> Result<RunnablePerItemArgs<T>, ShellError>;
 }
 
-impl CallInfo {
-    pub fn process<'de, T: Deserialize<'de>>(
+impl CallInfoExt for CallInfo {
+    fn process<'de, T: Deserialize<'de>>(
         &self,
         shell_manager: &ShellManager,
         callback: fn(T, &RunnablePerItemContext) -> Result<OutputStream, ShellError>,
@@ -85,10 +85,6 @@ impl RawCommandArgs {
             call_info: self.call_info,
             input: input.into(),
         }
-    }
-
-    pub fn source(&self) -> Text {
-        self.call_info.source.clone()
     }
 }
 
@@ -197,12 +193,6 @@ pub struct RunnablePerItemContext {
     pub name: Tag,
 }
 
-impl RunnablePerItemContext {
-    pub fn cwd(&self) -> PathBuf {
-        PathBuf::from(self.shell_manager.path())
-    }
-}
-
 pub struct RunnableContext {
     pub input: InputStream,
     pub shell_manager: ShellManager,
@@ -294,7 +284,7 @@ impl EvaluatedWholeStreamCommandArgs {
         self.args.call_info.name_tag.clone()
     }
 
-    pub fn parts(self) -> (InputStream, registry::EvaluatedArgs) {
+    pub fn parts(self) -> (InputStream, EvaluatedArgs) {
         let EvaluatedWholeStreamCommandArgs { args, input } = self;
 
         (input, args.call_info.args)
@@ -348,33 +338,12 @@ pub struct EvaluatedCommandArgs {
 }
 
 impl EvaluatedCommandArgs {
-    pub fn call_args(&self) -> &registry::EvaluatedArgs {
-        &self.call_info.args
-    }
-
     pub fn nth(&self, pos: usize) -> Option<&Value> {
         self.call_info.args.nth(pos)
     }
 
-    pub fn expect_nth(&self, pos: usize) -> Result<&Value, ShellError> {
-        self.call_info.args.expect_nth(pos)
-    }
-
-    pub fn len(&self) -> usize {
-        self.call_info.args.len()
-    }
-
     pub fn get(&self, name: &str) -> Option<&Value> {
         self.call_info.args.get(name)
-    }
-
-    pub fn slice_from(&self, from: usize) -> Vec<Value> {
-        let positional = &self.call_info.args.positional;
-
-        match positional {
-            None => vec![],
-            Some(list) => list[from..].to_vec(),
-        }
     }
 
     pub fn has(&self, name: &str) -> bool {

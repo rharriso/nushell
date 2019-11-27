@@ -1,6 +1,4 @@
-use crate::Signature;
-use crate::{CallInfo, ReturnValue, ShellError, Value};
-use nu_protocol::outln;
+use nu_protocol::{outln, CallInfo, ReturnValue, ShellError, Signature, Value};
 use serde::{Deserialize, Serialize};
 use std::io;
 

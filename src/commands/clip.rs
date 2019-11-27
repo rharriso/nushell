@@ -4,7 +4,7 @@ pub mod clipboard {
     use crate::context::CommandRegistry;
     use crate::prelude::*;
     use futures::stream::StreamExt;
-    use nu_protocol::ShellError;
+    use nu_protocol::{ReturnValue, ShellError, Signature, Value};
 
     use clipboard::{ClipboardContext, ClipboardProvider};
 
@@ -67,7 +67,7 @@ pub mod clipboard {
                 }
 
                 let string: String = match i.as_string() {
-                    Ok(string) => string,
+                    Ok(string) => string.to_string(),
                     Err(_) => {
                         return OutputStream::one(Err(ShellError::labeled_error(
                             "Given non-string data",

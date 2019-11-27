@@ -16,7 +16,7 @@ use crate::parser::{
     TokenNode,
 };
 use crate::prelude::*;
-use nu_protocol::{ShellError, UntaggedValue, Signature, Value};
+use nu_protocol::{ParseError, ReturnSuccess, ShellError, Signature, UntaggedValue, Value};
 use nu_source::{Spanned, Tagged};
 
 use log::{debug, log_enabled, trace};
@@ -27,21 +27,6 @@ use std::io::{BufRead, BufReader, Write};
 use std::iter::Iterator;
 use std::path::PathBuf;
 use std::sync::atomic::Ordering;
-
-#[derive(Debug)]
-pub enum MaybeOwned<'a, T> {
-    Owned(T),
-    Borrowed(&'a T),
-}
-
-impl<T> MaybeOwned<'_, T> {
-    pub fn borrow(&self) -> &T {
-        match self {
-            MaybeOwned::Owned(v) => v,
-            MaybeOwned::Borrowed(v) => v,
-        }
-    }
-}
 
 fn load_plugin(path: &std::path::Path, context: &mut Context) -> Result<(), ShellError> {
     let mut child = std::process::Command::new(path)

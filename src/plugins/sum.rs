@@ -1,6 +1,6 @@
-use nu::{
-    serve_plugin, CallInfo, Plugin, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature,
-    UntaggedValue, Value,
+use nu::{serve_plugin, value, Plugin};
+use nu_protocol::{
+    CallInfo, Primitive, ReturnSuccess, ReturnValue, ShellError, Signature, UntaggedValue, Value,
 };
 
 struct Sum {
@@ -21,7 +21,7 @@ impl Sum {
                         tag,
                     }) => {
                         //TODO: handle overflow
-                        self.total = Some(UntaggedValue::int(i + j).into_value(tag));
+                        self.total = Some(value::int(i + j).into_value(tag));
                         Ok(())
                     }
                     None => {
@@ -42,7 +42,7 @@ impl Sum {
                         tag,
                     }) => {
                         //TODO: handle overflow
-                        self.total = Some(UntaggedValue::bytes(b + j).into_value(tag));
+                        self.total = Some(value::bytes(b + j).into_value(tag));
                         Ok(())
                     }
                     None => {

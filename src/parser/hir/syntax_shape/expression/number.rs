@@ -9,6 +9,7 @@ use crate::parser::{
     UnspannedToken,
 };
 use crate::prelude::*;
+use nu_protocol::ShellError;
 use nu_source::Spanned;
 
 #[derive(Debug, Copy, Clone)]

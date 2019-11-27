@@ -52,14 +52,14 @@ impl PositionalType {
         PositionalType::Optional(name.to_string(), SyntaxShape::Any)
     }
 
-    pub(crate) fn name(&self) -> &str {
+    pub fn name(&self) -> &str {
         match self {
             PositionalType::Mandatory(s, _) => s,
             PositionalType::Optional(s, _) => s,
         }
     }
 
-    pub(crate) fn syntax_type(&self) -> SyntaxShape {
+    pub fn syntax_type(&self) -> SyntaxShape {
         match *self {
             PositionalType::Mandatory(_, t) => t,
             PositionalType::Optional(_, t) => t,

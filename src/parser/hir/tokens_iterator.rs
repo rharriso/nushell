@@ -1,7 +1,6 @@
 pub(crate) mod debug;
 
 use self::debug::{ColorTracer, ExpandTracer};
-use crate::errors::ShellError;
 #[cfg(coloring_in_tokens)]
 use crate::parser::hir::syntax_shape::FlatShape;
 use crate::parser::hir::Expression;
@@ -9,6 +8,7 @@ use crate::parser::TokenNode;
 use crate::prelude::*;
 #[allow(unused)]
 use getset::{Getters, MutGetters};
+use nu_protocol::{ParseError, ShellError};
 use nu_source::Spanned;
 
 cfg_if::cfg_if! {

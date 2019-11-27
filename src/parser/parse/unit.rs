@@ -1,4 +1,5 @@
 use crate::prelude::*;
+use nu_protocol::UntaggedValue;
 use serde::{Deserialize, Serialize};
 
 use std::str::FromStr;
@@ -25,7 +26,7 @@ pub enum Unit {
 
 impl PrettyDebug for Unit {
     fn pretty(&self) -> DebugDocBuilder {
-        b::keyword(format!("{:?}", self))
+        b::keyword(self.as_str())
     }
 }
 
@@ -59,23 +60,19 @@ impl Unit {
         let size = size.clone();
 
         match &self {
-            Unit::Byte => UntaggedValue::number(size),
-            Unit::Kilobyte => UntaggedValue::number(size * 1024),
-            Unit::Megabyte => UntaggedValue::number(size * 1024 * 1024),
-            Unit::Gigabyte => UntaggedValue::number(size * 1024 * 1024 * 1024),
-            Unit::Terabyte => UntaggedValue::number(size * 1024 * 1024 * 1024 * 1024),
-            Unit::Petabyte => UntaggedValue::number(size * 1024 * 1024 * 1024 * 1024 * 1024),
-            Unit::Second => UntaggedValue::duration(convert_number_to_u64(&size)),
-            Unit::Minute => UntaggedValue::duration(60 * convert_number_to_u64(&size)),
-            Unit::Hour => UntaggedValue::duration(60 * 60 * convert_number_to_u64(&size)),
-            Unit::Day => UntaggedValue::duration(24 * 60 * 60 * convert_number_to_u64(&size)),
-            Unit::Week => UntaggedValue::duration(7 * 24 * 60 * 60 * convert_number_to_u64(&size)),
-            Unit::Month => {
-                UntaggedValue::duration(30 * 24 * 60 * 60 * convert_number_to_u64(&size))
-            }
-            Unit::Year => {
-                UntaggedValue::duration(365 * 24 * 60 * 60 * convert_number_to_u64(&size))
-            }
+            Unit::Byte => value::number(size),
+            Unit::Kilobyte => value::number(size * 1024),
+            Unit::Megabyte => value::number(size * 1024 * 1024),
+            Unit::Gigabyte => value::number(size * 1024 * 1024 * 1024),
+            Unit::Terabyte => value::number(size * 1024 * 1024 * 1024 * 1024),
+            Unit::Petabyte => value::number(size * 1024 * 1024 * 1024 * 1024 * 1024),
+            Unit::Second => value::duration(convert_number_to_u64(&size)),
+            Unit::Minute => value::duration(60 * convert_number_to_u64(&size)),
+            Unit::Hour => value::duration(60 * 60 * convert_number_to_u64(&size)),
+            Unit::Day => value::duration(24 * 60 * 60 * convert_number_to_u64(&size)),
+            Unit::Week => value::duration(7 * 24 * 60 * 60 * convert_number_to_u64(&size)),
+            Unit::Month => value::duration(30 * 24 * 60 * 60 * convert_number_to_u64(&size)),
+            Unit::Year => value::duration(365 * 24 * 60 * 60 * convert_number_to_u64(&size)),
         }
     }
 }

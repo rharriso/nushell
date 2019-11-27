@@ -3,10 +3,11 @@ use chrono::{DateTime, Local, Utc};
 use nu_protocol::{Dictionary, ShellError, Value};
 
 use crate::commands::WholeStreamCommand;
-use crate::parser::registry::Signature;
+use crate::data::value;
 use chrono::{Datelike, TimeZone, Timelike};
 use core::fmt::Display;
 use indexmap::IndexMap;
+use nu_protocol::{Signature, UntaggedValue};
 
 pub struct Date;
 
@@ -40,35 +41,23 @@ where
 {
     let mut indexmap = IndexMap::new();
 
-    indexmap.insert(
-        "year".to_string(),
-        UntaggedValue::int(dt.year()).into_value(&tag),
-    );
-    indexmap.insert(
-        "month".to_string(),
-        UntaggedValue::int(dt.month()).into_value(&tag),
-    );
-    indexmap.insert(
-        "day".to_string(),
-        UntaggedValue::int(dt.day()).into_value(&tag),
-    );
-    indexmap.insert(
-        "hour".to_string(),
-        UntaggedValue::int(dt.hour()).into_value(&tag),
-    );
+    indexmap.insert("year".to_string(), value::int(dt.year()).into_value(&tag));
+    indexmap.insert("month".to_string(), value::int(dt.month()).into_value(&tag));
+    indexmap.insert("day".to_string(), value::int(dt.day()).into_value(&tag));
+    indexmap.insert("hour".to_string(), value::int(dt.hour()).into_value(&tag));
     indexmap.insert(
         "minute".to_string(),
-        UntaggedValue::int(dt.minute()).into_value(&tag),
+        value::int(dt.minute()).into_value(&tag),
     );
     indexmap.insert(
         "second".to_string(),
-        UntaggedValue::int(dt.second()).into_value(&tag),
+        value::int(dt.second()).into_value(&tag),
     );
 
     let tz = dt.offset();
     indexmap.insert(
         "timezone".to_string(),
-        UntaggedValue::string(format!("{}", tz)).into_value(&tag),
+        value::string(format!("{}", tz)).into_value(&tag),
     );
 
     UntaggedValue::Row(Dictionary::from(indexmap)).into_value(&tag)

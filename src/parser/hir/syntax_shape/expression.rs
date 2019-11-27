@@ -12,13 +12,14 @@ use crate::parser::hir::syntax_shape::{
     color_delimited_square, color_fallible_syntax, color_fallible_syntax_with, expand_atom,
     expand_delimited_square, expand_expr, expand_syntax, BareShape, ColorableDotShape, DotShape,
     ExpandContext, ExpandExpression, ExpandSyntax, ExpansionRule, ExpressionContinuation,
-    ExpressionContinuationShape, FallibleColorSyntax, FlatShape, ParseError, UnspannedAtomicToken,
+    ExpressionContinuationShape, FallibleColorSyntax, FlatShape, UnspannedAtomicToken,
 };
 use crate::parser::{
     hir,
     hir::{Expression, TokensIterator},
 };
 use crate::prelude::*;
+use nu_protocol::{ParseError, ShellError};
 use nu_source::Spanned;
 use std::path::PathBuf;
 

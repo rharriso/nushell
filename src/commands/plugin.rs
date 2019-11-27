@@ -1,9 +1,11 @@
 use crate::commands::WholeStreamCommand;
-use crate::errors::ShellError;
-use crate::parser::registry;
+use crate::data::value;
 use crate::prelude::*;
 use derive_new::new;
 use log::trace;
+use nu_protocol::{
+    Primitive, ReturnSuccess, ReturnValue, ShellError, Signature, UntaggedValue, Value,
+};
 use serde::{self, Deserialize, Serialize};
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -39,7 +41,7 @@ pub enum NuResult {
 pub struct PluginCommand {
     name: String,
     path: String,
-    config: registry::Signature,
+    config: Signature,
 }
 
 impl WholeStreamCommand for PluginCommand {
@@ -47,7 +49,7 @@ impl WholeStreamCommand for PluginCommand {
         &self.name
     }
 
-    fn signature(&self) -> registry::Signature {
+    fn signature(&self) -> Signature {
         self.config.clone()
     }
 
@@ -264,7 +266,7 @@ pub fn filter_plugin(
 pub struct PluginSink {
     name: String,
     path: String,
-    config: registry::Signature,
+    config: Signature,
 }
 
 impl WholeStreamCommand for PluginSink {
@@ -272,7 +274,7 @@ impl WholeStreamCommand for PluginSink {
         &self.name
     }
 
-    fn signature(&self) -> registry::Signature {
+    fn signature(&self) -> Signature {
         self.config.clone()
     }
 
@@ -315,7 +317,7 @@ pub fn sink_plugin(
 
         // Needed for async_stream to type check
         if false {
-            yield ReturnSuccess::value(UntaggedValue::nothing().into_untagged_value());
+            yield ReturnSuccess::value(value::nothing().into_untagged_value());
         }
     };
     Ok(OutputStream::new(stream))
