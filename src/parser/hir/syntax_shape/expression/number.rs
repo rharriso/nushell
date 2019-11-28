@@ -8,9 +8,8 @@ use crate::parser::{
     hir::{RawNumber, TokensIterator},
     UnspannedToken,
 };
-use crate::prelude::*;
-use nu_errors::{ShellError, ParseError};
-use nu_source::Spanned;
+use nu_errors::{ParseError, ShellError};
+use nu_source::{Spanned, SpannedItem};
 
 #[derive(Debug, Copy, Clone)]
 pub struct NumberShape;

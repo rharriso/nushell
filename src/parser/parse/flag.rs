@@ -1,8 +1,7 @@
 use crate::parser::hir::syntax_shape::flat_shape::FlatShape;
-use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
-use nu_source::{Span, Spanned, SpannedItem};
+use nu_source::{Span, b, Spanned, SpannedItem, PrettyDebugWithSource, DebugDocBuilder};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize, Serialize)]

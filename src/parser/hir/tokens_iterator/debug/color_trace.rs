@@ -1,9 +1,8 @@
-use nu_errors::ShellError;
 use crate::parser::hir::syntax_shape::FlatShape;
-use crate::prelude::*;
 use ansi_term::Color;
 use log::trace;
-use nu_source::Spanned;
+use nu_errors::ShellError;
+use nu_source::{Spanned, Text};
 use ptree::*;
 use std::borrow::Cow;
 use std::io;

@@ -1,6 +1,6 @@
 use crate::parser::TokenNode;
-use crate::prelude::*;
 use getset::Getters;
+use nu_source::{b, DebugDocBuilder, PrettyDebugWithSource};
 
 #[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd, Getters)]
 pub struct CallNode {

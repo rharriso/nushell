@@ -4,7 +4,6 @@ use crate::parser::parse::{
     call_node::*, flag::*, operator::*, pipeline::*, token_tree::*, token_tree_builder::*,
     tokens::*, unit::*,
 };
-use crate::prelude::*;
 use nom;
 use nom::branch::*;
 use nom::bytes::complete::*;
@@ -13,6 +12,7 @@ use nom::combinator::*;
 use nom::multi::*;
 use nom::sequence::*;
 
+use bigdecimal::BigDecimal;
 use derive_new::new;
 use log::trace;
 use nom::dbg;
@@ -20,7 +20,13 @@ use nom::*;
 use nom::{AsBytes, FindSubstring, IResult, InputLength, InputTake, Slice};
 use nom_locate::{position, LocatedSpanEx};
 use nom_tracable::{tracable_parser, HasTracableInfo, TracableInfo};
-use nu_source::{nom_input, NomSpan, Spanned};
+use nu_source::{
+    b, nom_input, DebugDocBuilder, HasSpan, NomSpan, PrettyDebug, PrettyDebugWithSource, Span,
+    Spanned, SpannedItem, Tag,
+};
+use num_bigint::BigInt;
+use num_traits::identities::Zero;
+use num_traits::FromPrimitive;
 use serde::{Deserialize, Serialize};
 use std::fmt::Debug;
 use std::str::FromStr;

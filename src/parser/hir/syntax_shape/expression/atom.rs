@@ -8,10 +8,9 @@ use crate::parser::{
     parse::flag::{Flag, FlagKind},
     DelimitedNode, Delimiter, FlatShape, TokenNode, Unit, UnspannedToken,
 };
-use crate::prelude::*;
 use nu_errors::{ParseError, ShellError};
-use nu_protocol::{ShellTypeName};
-use nu_source::Spanned;
+use nu_protocol::ShellTypeName;
+use nu_source::{b, DebugDocBuilder, HasSpan, PrettyDebugWithSource, Span, Spanned, SpannedItem};
 use std::ops::Deref;
 
 #[derive(Debug, Clone)]

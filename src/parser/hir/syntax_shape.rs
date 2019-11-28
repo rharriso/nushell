@@ -7,19 +7,23 @@ use crate::commands::{
     classified::{ClassifiedPipeline, InternalCommand},
     ClassifiedCommand, Command,
 };
+use crate::context::CommandRegistry;
 use crate::parser::hir::expand_external_tokens::ExternalTokensShape;
 use crate::parser::hir::syntax_shape::block::AnyBlockShape;
 use crate::parser::hir::tokens_iterator::Peeked;
 use crate::parser::parse::tokens::Token;
 use crate::parser::parse_command::{parse_command_tail, CommandTailShape};
 use crate::parser::{hir, hir::TokensIterator, Operator, TokenNode, UnspannedToken};
-use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
 use nu_errors::{ParseError, ShellError};
 use nu_protocol::{ShellTypeName, Signature};
-use nu_source::Spanned;
+use nu_source::{TaggedItem,
+    b, DebugDocBuilder, HasFallibleSpan, HasSpan, PrettyDebug, PrettyDebugWithSource, Span,
+    Spanned, SpannedItem, Tag, Text,
+};
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 
 pub(crate) use self::expression::atom::{
     expand_atom, AtomicToken, ExpansionRule, UnspannedAtomicToken,

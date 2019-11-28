@@ -1,12 +1,12 @@
-use crate::prelude::*;
-
 use crate::parser::parse::flag::{Flag, FlagKind};
 use crate::parser::parse::operator::Operator;
 use crate::parser::parse::pipeline::{Pipeline, PipelineElement};
 use crate::parser::parse::token_tree::{DelimitedNode, Delimiter, TokenNode};
 use crate::parser::parse::tokens::{RawNumber, UnspannedToken};
 use crate::parser::CallNode;
-use nu_source::Spanned;
+use nu_source::{Span, Spanned, SpannedItem};
+use num_bigint::BigInt;
+use bigdecimal::BigDecimal;
 
 pub struct TokenTreeBuilder {
     pos: usize,

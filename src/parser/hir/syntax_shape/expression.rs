@@ -18,9 +18,8 @@ use crate::parser::{
     hir,
     hir::{Expression, TokensIterator},
 };
-use crate::prelude::*;
 use nu_errors::{ParseError, ShellError};
-use nu_source::Spanned;
+use nu_source::{HasSpan, Span, Spanned, SpannedItem, Tag};
 use std::path::PathBuf;
 
 #[derive(Debug, Copy, Clone)]

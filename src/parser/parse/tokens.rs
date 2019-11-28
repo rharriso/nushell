@@ -1,7 +1,12 @@
+use crate::parser::parse::parser::Number;
 use crate::parser::Operator;
-use crate::prelude::*;
+use bigdecimal::BigDecimal;
 use nu_protocol::ShellTypeName;
-use nu_source::{Spanned, Text};
+use nu_source::{
+    b, DebugDocBuilder, HasSpan, PrettyDebug, PrettyDebugWithSource, Span, Spanned, SpannedItem,
+    Text,
+};
+use num_bigint::BigInt;
 use std::fmt;
 use std::str::FromStr;
 

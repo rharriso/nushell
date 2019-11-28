@@ -2,10 +2,10 @@ use crate::parser::hir::syntax_shape::{
     color_syntax, expand_syntax, ColorSyntax, ExpandContext, ExpressionListShape, TokenNode,
 };
 use crate::parser::{hir, hir::TokensIterator, Delimiter, FlatShape};
-use crate::prelude::*;
 use nu_errors::ParseError;
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;
+use nu_source::{Span, SpannedItem, Tag};
 
 pub fn expand_delimited_square(
     children: &Vec<TokenNode>,

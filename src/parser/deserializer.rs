@@ -1,8 +1,9 @@
-use crate::prelude::*;
+use crate::data::base::property_get::ValueExt;
+use crate::data::value;
 use log::trace;
 use nu_errors::{CoerceInto, ShellError};
 use nu_protocol::{CallInfo, ColumnPath, Evaluate, Primitive, ShellTypeName, UntaggedValue, Value};
-use nu_source::Tagged;
+use nu_source::{HasSpan, SpannedItem, Tagged, TaggedItem};
 use serde::de;
 use std::path::PathBuf;
 

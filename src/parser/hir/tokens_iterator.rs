@@ -5,11 +5,10 @@ use self::debug::{ColorTracer, ExpandTracer};
 use crate::parser::hir::syntax_shape::FlatShape;
 use crate::parser::hir::Expression;
 use crate::parser::TokenNode;
-use crate::prelude::*;
 #[allow(unused)]
 use getset::{Getters, MutGetters};
 use nu_errors::{ParseError, ShellError};
-use nu_source::Spanned;
+use nu_source::{HasFallibleSpan, Span, SpannedItem, Spanned, HasSpan, Tag, Text};
 
 cfg_if::cfg_if! {
     if #[cfg(coloring_in_tokens)] {

@@ -5,8 +5,8 @@ use crate::parser::hir::syntax_shape::{
     expression::expand_file_path, ExpandContext, ExpandExpression, FallibleColorSyntax, FlatShape,
 };
 use crate::parser::{hir, hir::TokensIterator};
-use crate::prelude::*;
-use nu_errors::{ShellError, ParseError};
+use nu_errors::{ParseError, ShellError};
+use nu_source::SpannedItem;
 
 #[derive(Debug, Copy, Clone)]
 pub struct FilePathShape;

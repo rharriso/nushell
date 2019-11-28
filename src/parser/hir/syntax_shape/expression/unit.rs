@@ -3,14 +3,13 @@ use crate::parser::parse::tokens::RawNumber;
 use crate::parser::parse::tokens::Token;
 use crate::parser::parse::unit::Unit;
 use crate::parser::{hir::TokensIterator, TokenNode, UnspannedToken};
-use crate::prelude::*;
 use nom::branch::alt;
 use nom::bytes::complete::tag;
 use nom::character::complete::digit1;
 use nom::combinator::{all_consuming, opt, value};
 use nom::IResult;
-use nu_source::{Span, Spanned};
 use nu_errors::ParseError;
+use nu_source::{b, DebugDocBuilder, SpannedItem, HasSpan, PrettyDebugWithSource, Span, Spanned};
 
 #[derive(Debug, Clone)]
 pub struct UnitSyntax {

@@ -7,11 +7,11 @@ use crate::parser::hir::syntax_shape::{
 use crate::parser::{
     hir, hir::Expression, hir::TokensIterator, Operator, RawNumber, UnspannedToken,
 };
-use crate::prelude::*;
 use nu_errors::ShellError;
 use nu_protocol::{PathMember, ShellTypeName};
-use nu_source::{Spanned, Tagged};
-use serde::Serialize;
+use nu_source::{b, DebugDocBuilder, TaggedItem, SpannedItem, PrettyDebug, Tag, HasSpan, PrettyDebugWithSource, Span, Spanned, Tagged, Text};
+use num_bigint::BigInt;
+use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
 #[derive(Debug, Copy, Clone)]

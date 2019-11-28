@@ -1,10 +1,9 @@
 use crate::parser::hir::Expression;
-use crate::prelude::*;
 use ansi_term::Color;
 use log::trace;
 use nu_errors::ParseError;
 use nu_protocol::ShellTypeName;
-use nu_source::DebugDoc;
+use nu_source::{DebugDoc, PrettyDebug, PrettyDebugWithSource, Text};
 use ptree::*;
 use std::borrow::Cow;
 use std::io;

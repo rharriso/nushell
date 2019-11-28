@@ -1,10 +1,12 @@
 use crate::parser::parse::{call_node::*, flag::*, operator::*, pipeline::*, tokens::*};
-use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
 use nu_errors::{ParseError, ShellError};
 use nu_protocol::ShellTypeName;
-use nu_source::{Spanned, Tagged, Text};
+use nu_source::{
+    b, DebugDocBuilder, HasSpan, PrettyDebugWithSource, Span, Spanned, SpannedItem, Tagged,
+    TaggedItem, Text,
+};
 use std::fmt;
 
 #[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]

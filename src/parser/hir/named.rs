@@ -1,8 +1,8 @@
 use crate::parser::hir::Expression;
 use crate::parser::Flag;
-use crate::prelude::*;
 use indexmap::IndexMap;
 use log::trace;
+use nu_source::{b, DebugDocBuilder, PrettyDebugWithSource, Tag};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]

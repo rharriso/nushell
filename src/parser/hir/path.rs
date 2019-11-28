@@ -1,9 +1,8 @@
 use crate::parser::hir::Expression;
-use crate::prelude::*;
 use derive_new::new;
 use getset::{Getters, MutGetters};
 use nu_protocol::PathMember;
-use nu_source::{b, PrettyDebug};
+use nu_source::{b, DebugDocBuilder, PrettyDebug, PrettyDebugWithSource};
 use serde::{Deserialize, Serialize};
 
 #[derive(

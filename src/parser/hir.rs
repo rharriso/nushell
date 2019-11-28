@@ -8,13 +8,16 @@ pub(crate) mod syntax_shape;
 pub(crate) mod tokens_iterator;
 
 use crate::parser::hir::syntax_shape::Member;
+use crate::parser::parse::parser::Number;
 use crate::parser::{registry, Operator, Unit};
-use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
 use nu_errors::ShellError;
 use nu_protocol::{EvaluatedArgs, PathMember, Scope, ShellTypeName};
-use nu_source::Spanned;
+use nu_source::{
+    b, DebugDocBuilder, HasSpan, PrettyDebug, PrettyDebugWithSource, Span, Spanned, SpannedItem,
+    Text,
+};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
