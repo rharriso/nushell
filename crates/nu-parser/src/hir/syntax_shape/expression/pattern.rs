@@ -5,6 +5,8 @@ use crate::hir::syntax_shape::{
 use crate::parse::tokens::{Token, UnspannedToken};
 use crate::{hir, hir::TokensIterator, Operator, TokenNode};
 use nu_errors::{ParseError, ShellError};
+#[cfg(coloring_in_tokens)]
+use nu_protocol::ShellTypeName;
 #[cfg(not(coloring_in_tokens))]
 use nu_source::Spanned;
 use nu_source::{Span, SpannedItem};

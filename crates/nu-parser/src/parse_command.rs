@@ -389,7 +389,7 @@ impl ColorSyntax for CommandTailShape {
         token_nodes: &'b mut TokensIterator<'a>,
         context: &ExpandContext,
     ) -> Self::Info {
-        use crate::hir::syntax_shape::SyntaxShape;
+        use nu_protocol::SyntaxShape;
 
         let mut args = ColoringArgs::new(token_nodes.len());
         trace_remaining("nodes", &token_nodes, context.source());

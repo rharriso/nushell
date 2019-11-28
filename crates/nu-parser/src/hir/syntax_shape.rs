@@ -1024,8 +1024,8 @@ impl FallibleColorSyntax for CommandHeadShape {
                     if context.registry.has(name) {
                         // If the registry has the command, color it as an internal command
                         token_nodes.color_shape(FlatShape::InternalCommand.spanned(text));
-                        let command = context.registry.expect_command(name);
-                        Ok(CommandHeadKind::Internal(command.signature()))
+                        let signature = context.registry.get(name).unwrap();
+                        Ok(CommandHeadKind::Internal(signature))
                     } else {
                         // Otherwise, color it as an external command
                         token_nodes.color_shape(FlatShape::ExternalCommand.spanned(text));
