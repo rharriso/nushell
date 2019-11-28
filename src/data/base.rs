@@ -2,19 +2,22 @@ pub(crate) mod property_get;
 pub(crate) mod shape;
 
 use crate::context::CommandRegistry;
+use crate::data::base::property_get::ValueExt;
 use crate::data::{value, TaggedDictBuilder};
 use crate::evaluate::evaluate_baseline_expr;
+use crate::parser::parse::parser::Number;
 use crate::parser::{hir, Operator};
-use crate::prelude::*;
+use bigdecimal::BigDecimal;
 use chrono::{DateTime, Utc};
 use derive_new::new;
 use log::trace;
-use nu_protocol::{
-    Evaluate, EvaluateTrait, Primitive, Scope, ShellTypeName, SpannedTypeName,
-    UntaggedValue, Value,
-};
 use nu_errors::ShellError;
-use nu_source::Text;
+use nu_protocol::{
+    Evaluate, EvaluateTrait, Primitive, Scope, ShellTypeName, SpannedTypeName, UntaggedValue, Value,
+};
+use nu_source::{Tag, Text};
+use num_bigint::BigInt;
+use num_traits::Zero;
 use query_interface::{interfaces, vtable_for, ObjectHash};
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
@@ -212,8 +215,8 @@ mod tests {
     use super::value;
     use crate::data::base::property_get::{as_column_path, ValueExt};
     use indexmap::IndexMap;
-    use nu_protocol::{ColumnPath as ColumnPathValue, PathMember, Value};
     use nu_errors::ShellError;
+    use nu_protocol::{ColumnPath as ColumnPathValue, PathMember, Value};
     use nu_source::*;
     use num_bigint::BigInt;
 

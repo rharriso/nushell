@@ -1,6 +1,6 @@
-use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
+use nu_source::Span;
 use serde::{Deserialize, Serialize};
 
 #[derive(

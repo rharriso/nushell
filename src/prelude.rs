@@ -99,7 +99,6 @@ pub(crate) use crate::data::types::ExtractType;
 pub(crate) use crate::data::value;
 pub(crate) use crate::env::host::handle_unexpected;
 pub(crate) use crate::env::Host;
-pub(crate) use crate::parser::parse::parser::Number;
 pub(crate) use crate::shell::filesystem_shell::FilesystemShell;
 pub(crate) use crate::shell::help_shell::HelpShell;
 pub(crate) use crate::shell::shell_manager::ShellManager;
@@ -116,7 +115,6 @@ pub(crate) use nu_source::{
 };
 pub(crate) use num_bigint::BigInt;
 pub(crate) use num_traits::cast::{ToPrimitive};
-pub(crate) use num_traits::identities::Zero;
 pub(crate) use serde::Deserialize;
 pub(crate) use std::collections::VecDeque;
 pub(crate) use std::future::Future;

@@ -5,9 +5,8 @@ pub(crate) mod flat_shape;
 use crate::cli::external_command;
 use crate::commands::{
     classified::{ClassifiedPipeline, InternalCommand},
-    ClassifiedCommand, Command,
+    ClassifiedCommand,
 };
-use crate::context::CommandRegistry;
 use crate::parser::hir::expand_external_tokens::ExternalTokensShape;
 use crate::parser::hir::syntax_shape::block::AnyBlockShape;
 use crate::parser::hir::tokens_iterator::Peeked;
@@ -18,12 +17,11 @@ use derive_new::new;
 use getset::Getters;
 use nu_errors::{ParseError, ShellError};
 use nu_protocol::{ShellTypeName, Signature};
-use nu_source::{TaggedItem,
+use nu_source::{
     b, DebugDocBuilder, HasFallibleSpan, HasSpan, PrettyDebug, PrettyDebugWithSource, Span,
-    Spanned, SpannedItem, Tag, Text,
+    Spanned, SpannedItem, Tag, TaggedItem, Text,
 };
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
 
 pub(crate) use self::expression::atom::{
     expand_atom, AtomicToken, ExpansionRule, UnspannedAtomicToken,
@@ -177,10 +175,15 @@ impl ExpandExpression for SyntaxShape {
     }
 }
 
+pub trait SignatureRegistry {
+    fn has(&self, name: &str) -> bool;
+    fn get(&self, name: &str) -> Option<Signature>;
+}
+
 #[derive(Getters, new)]
 pub struct ExpandContext<'context> {
     #[get = "pub(crate)"]
-    registry: &'context CommandRegistry,
+    registry: Box<dyn SignatureRegistry>,
     #[get = "pub(crate)"]
     source: &'context Text,
     homedir: Option<PathBuf>,
@@ -193,14 +196,14 @@ impl<'context> ExpandContext<'context> {
 
     #[cfg(test)]
     pub fn with_empty(source: &Text, callback: impl FnOnce(ExpandContext)) {
-        let mut registry = CommandRegistry::new();
+        let mut registry = crate::context::CommandRegistry::new();
         registry.insert(
             "ls",
             crate::commands::whole_stream_command(crate::commands::LS),
         );
 
         callback(ExpandContext {
-            registry: &registry,
+            registry: Box::new(registry),
             source,
             homedir: None,
         })
@@ -724,7 +727,7 @@ impl TestSyntax for BareShape {
 
 #[derive(Debug, Clone)]
 pub enum CommandSignature {
-    Internal(Spanned<Arc<Command>>),
+    Internal(Spanned<Signature>),
     LiteralExternal { outer: Span, inner: Span },
     External(Span),
     Expression(hir::Expression),
@@ -734,7 +737,7 @@ impl PrettyDebugWithSource for CommandSignature {
     fn pretty_debug(&self, source: &str) -> DebugDocBuilder {
         match self {
             CommandSignature::Internal(internal) => {
-                b::typed("command", b::description(internal.name()))
+                b::typed("command", b::description(&internal.name))
             }
             CommandSignature::LiteralExternal { outer, .. } => {
                 b::typed("command", b::description(outer.slice(source)))
@@ -980,8 +983,8 @@ impl FallibleColorSyntax for CommandHeadShape {
                     if context.registry.has(name) {
                         // If the registry has the command, color it as an internal command
                         shapes.push(FlatShape::InternalCommand.spanned(text));
-                        let command = context.registry.expect_command(name);
-                        Ok(CommandHeadKind::Internal(command.signature()))
+                        let signature = context.registry.get(name).unwrap();
+                        Ok(CommandHeadKind::Internal(signature))
                     } else {
                         // Otherwise, color it as an external command
                         shapes.push(FlatShape::ExternalCommand.spanned(text));
@@ -1077,8 +1080,8 @@ impl ExpandSyntax for CommandHeadShape {
                     UnspannedToken::Bare => {
                         let name = token_span.slice(context.source);
                         if context.registry.has(name) {
-                            let command = context.registry.expect_command(name);
-                            CommandSignature::Internal(command.spanned(token_span))
+                            let signature = context.registry.get(name).unwrap();
+                            CommandSignature::Internal(signature.spanned(token_span))
                         } else {
                             CommandSignature::External(token_span)
                         }
@@ -1139,9 +1142,8 @@ impl ExpandSyntax for ClassifiedCommandShape {
                 external_command(iterator, context, name_str.tagged(outer))
             }
 
-            CommandSignature::Internal(command) => {
-                let tail =
-                    parse_command_tail(&command.signature(), &context, iterator, command.span)?;
+            CommandSignature::Internal(signature) => {
+                let tail = parse_command_tail(&signature.item, &context, iterator, signature.span)?;
 
                 let (positional, named) = match tail {
                     None => (None, None),
@@ -1158,9 +1160,9 @@ impl ExpandSyntax for ClassifiedCommandShape {
                 };
 
                 Ok(ClassifiedCommand::Internal(InternalCommand::new(
-                    command.item.name().to_string(),
+                    signature.item.name.clone(),
                     Tag {
-                        span: command.span,
+                        span: signature.span,
                         anchor: None,
                     },
                     call,
