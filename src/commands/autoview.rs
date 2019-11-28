@@ -1,6 +1,6 @@
 use crate::commands::{RawCommandArgs, WholeStreamCommand};
 use crate::data::value;
-use crate::parser::hir::{Expression, NamedArguments};
+use nu_parser::hir::{Expression, NamedArguments};
 use crate::prelude::*;
 use futures::stream::TryStreamExt;
 use nu_protocol::{Primitive, ReturnSuccess, Signature, UntaggedValue, Value};

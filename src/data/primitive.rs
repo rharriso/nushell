@@ -1,5 +1,5 @@
-use crate::parser::parse::parser::Number;
 use chrono_humanize::Humanize;
+use nu_parser::Number;
 use nu_protocol::Primitive;
 use nu_source::PrettyDebug;
 

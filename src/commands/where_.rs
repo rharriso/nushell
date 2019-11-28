@@ -1,10 +1,8 @@
 use crate::commands::PerItemCommand;
-use crate::parser::registry;
+use crate::context::CommandRegistry;
 use crate::prelude::*;
-use nu_protocol::{
-    CallInfo, ReturnSuccess, Scope, Signature, SyntaxShape, UntaggedValue, Value,
-};
 use nu_errors::ShellError;
+use nu_protocol::{CallInfo, ReturnSuccess, Scope, Signature, SyntaxShape, UntaggedValue, Value};
 
 pub struct Where;
 
@@ -28,7 +26,7 @@ impl PerItemCommand for Where {
     fn run(
         &self,
         call_info: &CallInfo,
-        _registry: &registry::CommandRegistry,
+        _registry: &CommandRegistry,
         _raw_args: &RawCommandArgs,
         input: Value,
     ) -> Result<OutputStream, ShellError> {

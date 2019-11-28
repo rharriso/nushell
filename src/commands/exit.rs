@@ -1,5 +1,5 @@
 use crate::commands::command::WholeStreamCommand;
-use crate::parser::registry::CommandRegistry;
+use crate::context::CommandRegistry;
 use crate::prelude::*;
 use nu_errors::ShellError;
 use nu_protocol::{CommandAction, ReturnSuccess, Signature};

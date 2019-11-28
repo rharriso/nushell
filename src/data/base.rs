@@ -5,13 +5,12 @@ use crate::context::CommandRegistry;
 use crate::data::base::property_get::ValueExt;
 use crate::data::{value, TaggedDictBuilder};
 use crate::evaluate::evaluate_baseline_expr;
-use crate::parser::parse::parser::Number;
-use crate::parser::{hir, Operator};
 use bigdecimal::BigDecimal;
 use chrono::{DateTime, Utc};
 use derive_new::new;
 use log::trace;
 use nu_errors::ShellError;
+use nu_parser::{hir, Operator};
 use nu_protocol::{
     Evaluate, EvaluateTrait, Primitive, Scope, ShellTypeName, SpannedTypeName, UntaggedValue, Value,
 };
@@ -70,24 +69,6 @@ impl EvaluateTrait for Block {
     fn clone_box(&self) -> Evaluate {
         let block = self.clone();
         Evaluate::new(block)
-    }
-}
-
-impl Into<UntaggedValue> for Number {
-    fn into(self) -> UntaggedValue {
-        match self {
-            Number::Int(int) => value::int(int),
-            Number::Decimal(decimal) => value::decimal(decimal),
-        }
-    }
-}
-
-impl Into<UntaggedValue> for &Number {
-    fn into(self) -> UntaggedValue {
-        match self {
-            Number::Int(int) => value::int(int.clone()),
-            Number::Decimal(decimal) => value::decimal(decimal.clone()),
-        }
     }
 }
 

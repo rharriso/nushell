@@ -119,7 +119,7 @@ fn run(
                     ctrl_c: raw_args.ctrl_c,
                     shell_manager: raw_args.shell_manager,
                     call_info: UnevaluatedCallInfo {
-                        args: crate::parser::hir::Call {
+                        args: nu_parser::hir::Call {
                             head: raw_args.call_info.args.head,
                             positional: None,
                             named: None,
@@ -263,7 +263,7 @@ pub async fn post(
                         ctrl_c: raw_args.ctrl_c,
                         shell_manager: raw_args.shell_manager,
                         call_info: UnevaluatedCallInfo {
-                            args: crate::parser::hir::Call {
+                            args: nu_parser::hir::Call {
                                 head: raw_args.call_info.args.head,
                                 positional: None,
                                 named: None,

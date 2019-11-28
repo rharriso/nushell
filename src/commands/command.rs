@@ -1,9 +1,11 @@
-use crate::parser::hir;
-use crate::parser::{registry, ConfigDeserializer};
+use crate::context::CommandRegistry;
+use crate::deserializer::ConfigDeserializer;
+use crate::evaluate::evaluate_args::evaluate_args;
 use crate::prelude::*;
 use derive_new::new;
 use getset::Getters;
 use nu_errors::ShellError;
+use nu_parser::hir;
 use nu_protocol::{CallInfo, EvaluatedArgs, ReturnValue, Scope, Signature, Value};
 use serde::{Deserialize, Serialize};
 use std::ops::Deref;
@@ -19,10 +21,10 @@ pub struct UnevaluatedCallInfo {
 impl UnevaluatedCallInfo {
     pub fn evaluate(
         self,
-        registry: &registry::CommandRegistry,
+        registry: &CommandRegistry,
         scope: &Scope,
     ) -> Result<CallInfo, ShellError> {
-        let args = self.args.evaluate(registry, scope, &self.source)?;
+        let args = evaluate_args(&self.args, registry, scope, &self.source)?;
 
         Ok(CallInfo {
             args,
@@ -98,7 +100,7 @@ impl std::fmt::Debug for CommandArgs {
 impl CommandArgs {
     pub fn evaluate_once(
         self,
-        registry: &registry::CommandRegistry,
+        registry: &CommandRegistry,
     ) -> Result<EvaluatedWholeStreamCommandArgs, ShellError> {
         let host = self.host.clone();
         let ctrl_c = self.ctrl_c.clone();
@@ -371,7 +373,7 @@ pub trait WholeStreamCommand: Send + Sync {
     fn run(
         &self,
         args: CommandArgs,
-        registry: &registry::CommandRegistry,
+        registry: &CommandRegistry,
     ) -> Result<OutputStream, ShellError>;
 
     fn is_binary(&self) -> bool {
@@ -467,7 +469,7 @@ impl Command {
         }
     }
 
-    pub fn run(&self, args: CommandArgs, registry: &registry::CommandRegistry) -> OutputStream {
+    pub fn run(&self, args: CommandArgs, registry: &CommandRegistry) -> OutputStream {
         match self {
             Command::WholeStream(command) => match command.run(args, registry) {
                 Ok(stream) => stream,
@@ -534,7 +536,7 @@ impl WholeStreamCommand for FnFilterCommand {
     fn run(
         &self,
         args: CommandArgs,
-        registry: &registry::CommandRegistry,
+        registry: &CommandRegistry,
     ) -> Result<OutputStream, ShellError> {
         let CommandArgs {
             host,
@@ -546,7 +548,7 @@ impl WholeStreamCommand for FnFilterCommand {
 
         let host: Arc<Mutex<dyn Host>> = host.clone();
         let shell_manager = shell_manager.clone();
-        let registry: registry::CommandRegistry = registry.clone();
+        let registry: CommandRegistry = registry.clone();
         let func = self.func;
 
         let result = input.values.map(move |it| {

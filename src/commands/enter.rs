@@ -1,7 +1,7 @@
 use crate::commands::PerItemCommand;
 use crate::commands::UnevaluatedCallInfo;
+use crate::context::CommandRegistry;
 use crate::data::value;
-use crate::parser::registry;
 use crate::prelude::*;
 use nu_errors::ShellError;
 use nu_protocol::{
@@ -31,7 +31,7 @@ impl PerItemCommand for Enter {
     fn run(
         &self,
         call_info: &CallInfo,
-        registry: &registry::CommandRegistry,
+        registry: &CommandRegistry,
         raw_args: &RawCommandArgs,
         _input: Value,
     ) -> Result<OutputStream, ShellError> {
@@ -96,7 +96,7 @@ impl PerItemCommand for Enter {
                                             ctrl_c: raw_args.ctrl_c,
                                             shell_manager: raw_args.shell_manager,
                                             call_info: UnevaluatedCallInfo {
-                                                args: crate::parser::hir::Call {
+                                                args: nu_parser::hir::Call {
                                                     head: raw_args.call_info.args.head,
                                                     positional: None,
                                                     named: None,

@@ -1,8 +1,8 @@
 use crate::commands::WholeStreamCommand;
-use crate::parser::CommandRegistry;
+use crate::context::CommandRegistry;
 use crate::prelude::*;
-use nu_protocol::{Signature, SyntaxShape, Value};
 use nu_errors::ShellError;
+use nu_protocol::{Signature, SyntaxShape, Value};
 
 #[derive(Deserialize)]
 struct PrependArgs {

@@ -1,6 +1,6 @@
 use crate::commands::WholeStreamCommand;
+use crate::context::CommandRegistry;
 use crate::data::value;
-use crate::parser::CommandRegistry;
 use crate::prelude::*;
 use futures::stream::StreamExt;
 use nu_errors::ShellError;

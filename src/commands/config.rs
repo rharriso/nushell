@@ -1,6 +1,6 @@
 use crate::commands::WholeStreamCommand;
+use crate::context::CommandRegistry;
 use crate::data::config;
-use crate::parser::registry::{self};
 use crate::prelude::*;
 use nu_errors::ShellError;
 use nu_protocol::{Primitive, ReturnSuccess, Signature, SyntaxShape, UntaggedValue, Value};
@@ -55,7 +55,7 @@ impl WholeStreamCommand for Config {
     fn run(
         &self,
         args: CommandArgs,
-        registry: &registry::CommandRegistry,
+        registry: &CommandRegistry,
     ) -> Result<OutputStream, ShellError> {
         args.process(registry, config)?.run()
     }

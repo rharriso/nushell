@@ -1,17 +1,14 @@
+use crate::context::CommandRegistry;
 use crate::data::base::Block;
 use crate::data::value;
-use crate::parser::{
-    hir::{self, Expression, RawExpression},
-    CommandRegistry,
-};
 use crate::prelude::*;
 use crate::TaggedDictBuilder;
 use log::trace;
-use nu_protocol::{
-    ColumnPath, Evaluate, Primitive, Scope, UnspannedPathMember,
-    UntaggedValue, Value,
-};
 use nu_errors::{ArgumentError, ShellError};
+use nu_parser::hir::{self, Expression, RawExpression};
+use nu_protocol::{
+    ColumnPath, Evaluate, Primitive, Scope, UnspannedPathMember, UntaggedValue, Value,
+};
 use nu_source::Text;
 
 pub(crate) fn evaluate_baseline_expr(
