@@ -1,6 +1,4 @@
 use crate::parse::parser::Number;
-#[cfg(not(coloring_in_tokens))]
-use nu_protocol::Value;
 use nu_protocol::{Primitive, UntaggedValue};
 use nu_source::{b, DebugDocBuilder, PrettyDebug};
 use num_traits::ToPrimitive;

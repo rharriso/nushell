@@ -1,7 +1,7 @@
 use crossterm::{cursor, terminal, RawScreen};
 use crossterm::{InputEvent, KeyEvent};
-use nu::{serve_plugin, CallInfo, Plugin, Primitive, ShellError, Signature, UntaggedValue, Value};
-use nu_protocol::outln;
+use nu::{CallInfo, Plugin, Primitive, ShellError, Signature, UntaggedValue, Value};
+use nu_protocol::{outln, serve_plugin};
 use nu_source::AnchorLocation;
 
 use syntect::easy::HighlightLines;
