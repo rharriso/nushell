@@ -6,6 +6,7 @@ use crate::parse::operator::{CompareOperator, EvaluationOperator};
 use crate::parse::pipeline::{Pipeline, PipelineElement};
 use crate::parse::token_tree::{DelimitedNode, Delimiter, SpannedToken, Token};
 use bigdecimal::BigDecimal;
+use log::debug;
 use nu_source::{Span, Spanned, SpannedItem};
 use num_bigint::BigInt;
 
@@ -78,6 +79,7 @@ impl TokenTreeBuilder {
     }
 
     pub fn spanned_pipeline(input: Vec<PipelineElement>, span: impl Into<Span>) -> SpannedToken {
+        debug!("spanned_pipeline: {:?}", input);
         Token::Pipeline(Pipeline::new(input)).into_spanned(span)
     }
 

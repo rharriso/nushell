@@ -2,7 +2,7 @@ use crate::prelude::*;
 use bytes::{BufMut, BytesMut};
 use futures::stream::StreamExt;
 use futures_codec::{Decoder, Encoder, FramedRead};
-use log::trace;
+use log::{trace, debug};
 use nu_errors::ShellError;
 use nu_parser::ExternalCommand;
 use nu_protocol::{Primitive, ShellTypeName, UntaggedValue, Value};
@@ -28,6 +28,7 @@ impl Decoder for LinesCodec {
     type Error = Error;
 
     fn decode(&mut self, src: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
+        debug!("decode");
         match src.iter().position(|b| b == &b'\n') {
             Some(pos) if !src.is_empty() => {
                 let buf = src.split_to(pos + 1);

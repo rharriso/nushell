@@ -15,7 +15,7 @@ use nom::sequence::*;
 use bigdecimal::BigDecimal;
 use derive_new::new;
 use enumflags2::BitFlags;
-use log::trace;
+use log::{trace, debug};
 use nom::dbg;
 use nom::*;
 use nom::{AsBytes, FindSubstring, IResult, InputLength, InputTake, Slice};
@@ -942,6 +942,8 @@ pub fn nodes(input: NomSpan) -> IResult<NomSpan, SpannedToken> {
 
 #[tracable_parser]
 pub fn pipeline(input: NomSpan) -> IResult<NomSpan, SpannedToken> {
+    debug!("pipeline entry: {:?}", input);
+
     let start = input.offset;
     let (input, head) = spaced_token_list(input)?;
     let (input, items) = many0(tuple((tag("|"), spaced_token_list)))(input)?;
@@ -962,6 +964,8 @@ pub fn pipeline(input: NomSpan) -> IResult<NomSpan, SpannedToken> {
         let items_span = items.span;
         PipelineElement::new(Some(Span::from(pipe)), items)
     }));
+
+    debug!("pipeline exiting: {:?}", all_items);
 
     Ok((
         input,

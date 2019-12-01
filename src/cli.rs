@@ -466,6 +466,8 @@ pub async fn cli() -> Result<(), Box<dyn Error>> {
             initial_command = None;
         }
 
+        debug!("SUP");
+
         let line = process_line(readline, &mut context).await;
 
         match line {
@@ -669,11 +671,15 @@ pub fn classify_pipeline(
 
     let result = iterator.expand_infallible(PipelineShape);
 
+    debug!("context expanded: {:?}", result);
+
     if log_enabled!(target: "nu::expand_syntax", log::Level::Debug) {
         outln!("");
         let _ = ptree::print_tree(&iterator.expand_tracer().print(source.clone()));
         outln!("");
     }
+
+    debug!("classify result");
 
     result
 }
